@@ -293,6 +293,14 @@ struct implementation
 			<< make_toolbar_button()
 			), Gtk::PACK_SHRINK);
 
+        main_toolbar->row(0).pack_start(*Gtk::manage(
+			new image_toggle_button::control(
+				new detail::builtin_tool_model(m_document_state, m_document_state.raw_input_tool()), 0,
+				load_icon("raw_input_tool", Gtk::ICON_SIZE_SMALL_TOOLBAR))
+			<< set_tooltip(_("Raw input"))
+			<< make_toolbar_button()
+			), Gtk::PACK_SHRINK);
+
 		if(k3d::plugin::factory::lookup("NGUISnapTool"))
 		{
 			main_toolbar->row(0).pack_start(*Gtk::manage(

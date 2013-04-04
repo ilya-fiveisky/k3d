@@ -18,36 +18,24 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 /** \file
-	\author Timothy M. Shead (tshead@k-3d.com)
+	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3d-i18n-config.h>
-#include <k3dsdk/scalar_source.h>
+#include <k3dsdk/module.h>
 
-namespace k3d
+namespace module
 {
 
-scalar_source::scalar_source(iplugin_factory& Factory, idocument& Document, const char* const OutputDescription) :
-	base(Factory, Document),
-	m_output(init_owner(*this) + init_name("output") + init_label(_("Output")) + init_description(OutputDescription) + init_value(0.0))
+namespace input_devices
 {
-	m_output.set_update_slot(sigc::mem_fun(*this, &scalar_source::execute));
-}
 
-sigc::slot<void, ihint*> scalar_source::make_update_value_slot()
-{
-	return m_output.make_slot();
-}
+extern k3d::iplugin_factory& mouse_source_factory();
 
-void scalar_source::execute(const std::vector<ihint*>& Hints, double_t& Output)
-{
-	on_update_value(Output);
-}
+} //namespace input_devices
 
-void scalar_source::on_update_value(double_t& Output)
-{
-	Output = 0.0;
-}
+} // namespace module
 
-} // namespace k3d
 
+K3D_MODULE_START(Registry)
+        Registry.register_factory(module::input_devices::mouse_source_factory());
+K3D_MODULE_END

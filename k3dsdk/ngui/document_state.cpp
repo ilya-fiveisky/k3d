@@ -54,6 +54,7 @@
 #include <k3dsdk/ngui/document_state.h>
 #include <k3dsdk/ngui/move_tool.h>
 #include <k3dsdk/ngui/panel_mediator.h>
+#include <k3dsdk/ngui/raw_input_tool.h>
 #include <k3dsdk/ngui/rotate_tool.h>
 #include <k3dsdk/ngui/safe_close_dialog.h>
 #include <k3dsdk/ngui/scale_tool.h>
@@ -117,6 +118,7 @@ public:
 		m_move_tool(0),
 		m_rotate_tool(0),
 		m_scale_tool(0),
+        m_raw_input_tool(0),
 		m_context_menu(0),
 		m_node_selection(0)
 	{
@@ -136,6 +138,7 @@ public:
 		delete m_scale_tool;
 		delete m_rotate_tool;
 		delete m_move_tool;
+        delete m_raw_input_tool;
 		delete m_selection_tool;
 		
 		m_node_selection_metadata_connection.disconnect();
@@ -302,6 +305,7 @@ assert_not_implemented();
 	tool* m_move_tool;
 	tool* m_rotate_tool;
 	tool* m_scale_tool;
+    tool* m_raw_input_tool;
 
 	/// Store plugin tools
 	std::map<k3d::string_t, tool*> m_tools;
@@ -374,6 +378,7 @@ document_state::document_state(k3d::idocument& Document) :
 	m_implementation->m_move_tool = new k3d::ngui::move_tool(*this, "move_tool");
 	m_implementation->m_rotate_tool = new k3d::ngui::rotate_tool(*this, "rotate_tool");
 	m_implementation->m_scale_tool = new k3d::ngui::scale_tool(*this, "scale_tool");
+    m_implementation->m_raw_input_tool = new k3d::ngui::raw_input_tool(*this, "raw_input_tool");
 
 	m_implementation->m_active_tool = m_implementation->m_selection_tool;
 	m_implementation->m_active_tool->activate();
@@ -521,6 +526,11 @@ tool& document_state::rotate_tool()
 tool& document_state::scale_tool()
 {
 	return *m_implementation->m_scale_tool;
+}
+
+tool& document_state::raw_input_tool()
+{
+	return *m_implementation->m_raw_input_tool;
 }
 
 bool document_state::pick_backfacing()

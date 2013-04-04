@@ -70,6 +70,8 @@ class container :
 	public serialization_policy_t
 {
 public:
+    typedef value_t data_type;
+    
 	template<typename init_t>
 	container(const init_t& Init) :
 		serialization_policy_t(Init)
@@ -1843,19 +1845,19 @@ public:
 		return m_node;
 	}
 
-	/// Returns true iff the value is allowed to be NULL
+	/// Returns true if the value is allowed to be NULL
 	bool allow_none()
 	{
 		return true;
 	}
 
-	/// Returns true iff the given factory creates an node that could be stored by this container
+	/// Returns true if the given factory creates an node that could be stored by this container
 	bool allow(iplugin_factory& Factory)
 	{
 		return Factory.implements(typeid(typename boost::remove_pointer<value_t>::type));
 	}
 
-	/// Returns true iff the given node coult be stored by this container
+	/// Returns true if the given node could be stored by this container
 	bool allow(inode& Object)
 	{
 		return dynamic_cast<value_t>(&Object) ? true : false;
@@ -1881,6 +1883,10 @@ protected:
 
 	void on_node_deleted()
 	{
+        // If we don't set m_node = NULL then internal_value() 
+        // and internal_node() return dead pointer.
+        // Anyway it looks very strange that it wasn't zeroed here.
+        m_node = NULL;
 		internal_set_value(0, 0);
 	}
 
@@ -2187,6 +2193,9 @@ private:
 /// Convenience macro for declaring k3d::data::container nodes
 #define k3d_data(value_type, name_policy, signal_policy, undo_policy, storage_policy, constraint_policy, property_policy, serialization_policy) \
 	k3d::data::container<value_type, serialization_policy<value_type, property_policy<value_type, name_policy<constraint_policy<value_type, undo_policy<value_type, storage_policy<value_type, signal_policy<value_type> > > > > > > >
+
+template<typename value_type, template<typename> class name_policy, template<typename> class signal_policy, template<typename,typename> class undo_policy, template<typename,typename> class storage_policy, template<typename,typename> class constraint_policy, template<typename,typename> class property_policy, template<typename,typename> class serialization_policy>
+using container_t = k3d::data::container<value_type, serialization_policy<value_type, property_policy<value_type, name_policy<constraint_policy<value_type, undo_policy<value_type, storage_policy<value_type, signal_policy<value_type> > > > > > > >;
 
 /// Allows an arbitrary set of initializers to be consolidated into a single node
 template<class init_t>

@@ -149,3 +149,5 @@ ADD_SUBDIRECTORY(ngui)
 # Run miscellaneous odds-and-ends ...
 ADD_SUBDIRECTORY(other)
 
+ADD_SUBDIRECTORY(unit_tests)
+

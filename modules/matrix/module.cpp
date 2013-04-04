@@ -18,10 +18,11 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 /** \file
-	\author Joaquín Duo (joaduo at lugmen org ar)
+	\author Joaquín Duo (joaduo at lugmen org ar) 
 */
 
 #include <k3dsdk/module.h>
+#include <modules/matrix/translation_extractor.h>
 
 namespace module
 {
@@ -37,6 +38,7 @@ extern k3d::iplugin_factory& position_factory();
 extern k3d::iplugin_factory& scale_factory();
 extern k3d::iplugin_factory& snap_factory();
 extern k3d::iplugin_factory& view_factory();
+extern k3d::iplugin_factory& memorization_factory();
 
 } // namespace matrix
 
@@ -51,5 +53,7 @@ K3D_MODULE_START(Registry)
 	Registry.register_factory(module::matrix::scale_factory());
 	Registry.register_factory(module::matrix::snap_factory());
 	Registry.register_factory(module::matrix::view_factory());
+    Registry.register_factory(module::matrix::memorization_factory());
+    Registry.register_factory(module::matrix::translation_extractor::get_factory());
 K3D_MODULE_END
 

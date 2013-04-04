@@ -36,6 +36,7 @@ class point3;
 class plane
 {
 public:
+    plane();
 	/// Constructs a plane from its normal and distance from the origin
 	plane(const vector3& Normal, const double Distance);
 	/// Constructs a plane from its normal and one point located within the plane
@@ -56,6 +57,18 @@ std::istream& operator>>(std::istream& Stream, plane& RHS);
 const plane operator*(const matrix4& Matrix, const plane& Plane);
 /// Linear transformation if a plane by a transformation matrix
 const plane operator*(const plane& Plane, const matrix4& Matrix);
+
+/// Equality
+inline bool operator==(const plane& a, const plane& b)
+{
+	return a.normal == b.normal && a.distance == b.distance;
+}
+
+/// Inequality
+inline bool operator!=(const plane& a, const plane& b)
+{
+	return !(a==b);
+}
 
 } // namespace k3d
 

@@ -507,6 +507,11 @@ private:
 			<< connect_menu_item(sigc::mem_fun(*this, &main_document_window::on_scale_tool))
 			<< set_accelerator_path("<k3d-document>/actions/edit/tools/scale_tool", get_accel_group())));
 
+        menu->items().push_back(*Gtk::manage(
+			new Gtk::MenuItem(_("_Raw"), true)
+			<< connect_menu_item(sigc::mem_fun(*this, &main_document_window::on_raw_input_tool))
+			<< set_accelerator_path("<k3d-document>/actions/edit/tools/raw_input_tool", get_accel_group())));
+
 		if(k3d::plugin::factory::lookup("NGUIParentTool"))
 		{
 			menu->items().push_back(*Gtk::manage(
@@ -1560,6 +1565,11 @@ private:
 	void on_scale_tool()
 	{
 		m_document_state.set_active_tool(m_document_state.scale_tool());
+	}
+    
+    void on_raw_input_tool()
+	{
+		m_document_state.set_active_tool(m_document_state.raw_input_tool());
 	}
 
 	void on_parent_tool()

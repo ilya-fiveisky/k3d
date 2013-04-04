@@ -37,6 +37,7 @@ namespace k3d
 class line3
 {
 public:
+    line3();
 	/// Constructs a line from its direction vector and a point on the line
 	line3(const vector3& Direction, const point3& Point);
 	/// Constructs a line from two points on the line
@@ -47,6 +48,21 @@ public:
 	/// Stores a point on the line
 	point3 point;
 };
+
+std::ostream& operator<<(std::ostream& Stream, const line3& RHS);
+std::istream& operator>>(std::istream& Stream, line3& RHS);
+
+/// Equality
+inline bool operator==(const line3& a, const line3& b)
+{
+	return a.direction == b.direction && a.point == b.point;
+}
+
+/// Inequality
+inline bool operator!=(const line3& a, const line3& b)
+{
+	return !(a==b);
+}
 
 } // namespace k3d
 

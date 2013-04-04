@@ -20,9 +20,16 @@
 // License along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+#include <k3dsdk/ihint.h>
+#include <k3dsdk/signal_system.h>
+#include <k3dsdk/utility.h>
+
 #include <boost/scoped_ptr.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits.hpp>
+
+#include <algorithm>
+#include <vector>
 
 namespace k3d
 {

@@ -93,6 +93,8 @@ public:
 	tool& rotate_tool();
 	/// Returns a reference to the builtin Scale Tool that can be passed to set_active_tool()
 	tool& scale_tool();
+    /// Returns a reference to the builtin Raw Input Tool that can be passed to set_active_tool()
+	tool& raw_input_tool();
 
 	/// True if backfacing components are to be picked
 	bool pick_backfacing();

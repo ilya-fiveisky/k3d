@@ -455,7 +455,7 @@ public:
 		return dialog.get_file_path(Result);
 	}
 
-	k3d::bool_t show(iunknown& Object)
+	k3d::bool_t show(k3d::iunknown& Object)
 	{
 		k3d::log() << error << k3d_file_reference << ": not implemented!" << std::endl;
 		return false;

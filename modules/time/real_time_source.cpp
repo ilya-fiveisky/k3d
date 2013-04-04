@@ -61,13 +61,13 @@ public:
 
 	~real_time_source()
 	{
-		m_timeout_connection.disconnect();
+		m_timer_connection.disconnect();
 	}
 
 	void on_reset_source(k3d::ihint* Hint = 0)
 	{
-		m_timeout_connection.disconnect();
-		m_timeout_connection = k3d::user_interface().get_timer(m_frame_rate.pipeline_value(), sigc::bind(m_time.make_slot(), static_cast<k3d::ihint*>(0)));
+		m_timer_connection.disconnect();
+		m_timer_connection = k3d::user_interface().get_timer(m_frame_rate.pipeline_value(), sigc::bind(m_time.make_slot(), static_cast<k3d::ihint*>(0)));
 	}
 
 	static k3d::iplugin_factory& get_factory()
@@ -85,7 +85,7 @@ public:
 private:
 	k3d_data(k3d::double_t, immutable_name, change_signal, with_undo, local_storage, with_constraint, measurement_property, with_serialization) m_frame_rate;
 	k3d_data(k3d::double_t, immutable_name, change_signal, no_undo, value_demand_storage, no_constraint, read_only_property, no_serialization) m_time;
-	sigc::connection m_timeout_connection;
+	sigc::connection m_timer_connection;
 
 	/// Called whenever the output time has been modified and needs to be updated.
 	void execute(const std::vector<k3d::ihint*>& Hints, k3d::double_t& Time)

@@ -22,35 +22,16 @@
 
 /** \file
 	\author Timothy M. Shead (tshead@k-3d.com)
+    \author Ilya Fiveisky (ilya.five@gmail.com) 
 */
 
-#include <k3dsdk/hints.h>
-#include <k3dsdk/node.h>
-#include <k3dsdk/value_demand_storage.h>
+#include <k3dsdk/single_source.h>
 
 namespace k3d
 {
 
-/// Convenience base-class for sources / filters that produce a scalar output value
-class scalar_source :
-	public node
-{
-	typedef node base;
-public:
-	scalar_source(iplugin_factory& Factory, idocument& Document, const char* const OutputDescription);
-
-	/// Returns a slot that should be connected to input properties to signal that the output value has changed.
-	sigc::slot<void, ihint*> make_update_value_slot();
-
-private:
-	/// Stores the output value
-	k3d_data(double_t, immutable_name, change_signal, no_undo, value_demand_storage, no_constraint, read_only_property, no_serialization) m_output;
-
-	/// Called whenever the output value has been modified and needs to be updated.
-	void execute(const std::vector<ihint*>& Hints, double_t& Output);
-	/// Override this in derived classes, to return a new / modified value
-	virtual void on_update_value(double_t& Output);
-};
+/// Convenience base type for sources / filters that produce a scalar output value.
+typedef k3d::single_source<double_t> scalar_source;
 
 } // namespace k3d
 

@@ -30,6 +30,12 @@ namespace k3d
 /////////////////////////////////////////////////////////////////////////////
 // line3
 
+line3::line3() :
+direction(vector3(1, 0, 0)),
+point(point3())
+{
+}
+
 line3::line3(const vector3& Direction, const point3& Point) :
 	direction(Direction),
 	point(Point)
@@ -40,6 +46,18 @@ line3::line3(const point3& Point1, const point3& Point2) :
 	direction(Point2 - Point1),
 	point(Point1)
 {
+}
+
+std::ostream& operator<<(std::ostream& Stream, const line3& RHS)
+{
+    Stream << RHS.direction << " " << RHS.point;
+    return Stream;
+}
+
+std::istream& operator>>(std::istream& Stream, line3& RHS)
+{
+    Stream >> RHS.direction >> RHS.point;
+    return Stream;
 }
 
 } // namespace k3d

@@ -23,6 +23,7 @@
 #include <k3dsdk/ihint.h>
 #include <k3dsdk/signal_system.h>
 #include <k3dsdk/utility.h>
+#include <k3dsdk/inode.h>
 
 #include <boost/scoped_ptr.hpp>
 #include <boost/static_assert.hpp>

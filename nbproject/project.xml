@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.cnd.makeproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>k3d</name>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions>cc,cpp</cpp-extensions>
+            <header-extensions>h,hpp,xpm</header-extensions>
+            <sourceEncoding>UTF-8</sourceEncoding>
+            <make-dep-projects/>
+            <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>Default</name>
+                    <type>0</type>
+                </confElem>
+            </confList>
+        </data>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>Dahnielson</word>
+            <word>ilya</word>
+            <word>imouse</word>
+            <word>inode</word>
+            <word>istate</word>
+            <word>iwritable</word>
+            <word>ngui</word>
+            <word>plugin</word>
+            <word>plugins</word>
+            <word>Shead</word>
+            <word>tshead</word>
+            <word>xy</word>
+        </spellchecker-wordlist>
+    </configuration>
+</project>

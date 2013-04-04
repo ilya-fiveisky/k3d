@@ -30,6 +30,12 @@ namespace k3d
 /////////////////////////////////////////////////////////////////////////////
 // plane
 
+plane::plane() :
+	normal(vector3(1, 0, 0)),
+	distance(0.0)
+{
+}
+
 plane::plane(const vector3& Normal, const double Distance) :
 	normal(normalize(Normal)),
 	distance(Distance)
