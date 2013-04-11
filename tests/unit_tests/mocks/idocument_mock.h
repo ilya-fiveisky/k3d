@@ -1,3 +1,6 @@
+#ifndef K3D_TESTS_UNIT_TESTS_MOCKS_IDOCUMENT_MOCK_H
+#define	K3D_TESTS_UNIT_TESTS_MOCKS_IDOCUMENT_MOCK_H
+
 // K-3D
 // Copyright (c) 1995-2008, Timothy M. Shead
 //
@@ -21,20 +24,27 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <turtle/mock.hpp>
+#include <k3dsdk/idocument.h>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
+namespace k3d
 {
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
+namespace tests
+{
 
-BOOST_AUTO_TEST_SUITE_END()
-        
+MOCK_BASE_CLASS( idocument_mock, idocument )
+{
+    MOCK_METHOD( nodes, 0 )
+    MOCK_METHOD( pipeline, 0 )
+    MOCK_METHOD( pipeline_profiler, 0 )
+    MOCK_METHOD( state_recorder, 0 )
+    MOCK_METHOD( unique_node_names, 0 )
+    MOCK_METHOD( path, 0 )
+    MOCK_METHOD( title, 0 )
+    MOCK_METHOD( close_signal, 0 )
+};
+
+} // namespace tests
+} // namespace k3d
+#endif // !K3D_TESTS_UNIT_TESTS_MOCKS_IDOCUMENT_MOCK_H
+

@@ -25,12 +25,12 @@
     \author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
+#include <boost/type_traits.hpp>
+
 #include <k3d-i18n-config.h>
+#include <k3dsdk/function_nodes/property.h>
 #include <k3dsdk/hints.h>
 #include <k3dsdk/node.h>
-#include <k3dsdk/function_node/property.h>
-
-#include <boost/type_traits.hpp>
 
 namespace k3d
 {
@@ -57,7 +57,7 @@ public:
 
 private:
 	/// Stores the output value
-	function_node::output_property_t<value_t> m_output;
+	function_nodes::output_property_t<value_t> m_output;
 
 	/// Called whenever the output value has been modified and needs to be updated.
 	void execute(const std::vector<ihint*>& Hints, value_t& Output)

@@ -1,5 +1,5 @@
-#ifndef K3DSDK_FUNCTION_NODE_H
-#define K3DSDK_FUNCTION_NODE_H
+#ifndef STDX_MISC_H
+#define STDX_MISC_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -24,9 +24,15 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/function_node/property.h>
-#include <k3dsdk/function_node/binary_function_node.h>
-#include <k3dsdk/function_node/node_info.h>
-#include <k3dsdk/function_node/property_info.h>
+#include <tuple>
 
-#endif // !K3DSDK_FUNCTION_NODE_H
+namespace stdx {
+
+/// Used to pass U instance in variadic expression submitting unpacked parameters into T parameter.
+/// Necessary for initializing tuple of types with shared owner and without copy constructor.
+/// See m_inputs initialization in the k3d::function_nodes::function_node as example.
+template<typename T, typename U> U& variadic_id(U& x){return x;}
+
+} // namespace stdx
+
+#endif // !STDX_MISC_H

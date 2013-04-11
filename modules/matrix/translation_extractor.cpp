@@ -21,19 +21,20 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
+#include <modules/matrix/translation_extractor.h>
+
 #include <k3d-i18n-config.h>
-#include <k3dsdk/document_plugin_factory.h>
-#include <k3dsdk/vector3.h>
 #include <k3dsdk/algebra.h>
+#include <k3dsdk/document_plugin_factory.h>
+#include <k3dsdk/function_nodes/property.h>
 #include <k3dsdk/imatrix_sink.h>
 #include <k3dsdk/single_source.h>
-#include <k3dsdk/function_node/property.h>
-#include <modules/matrix/translation_extractor.h>
+#include <k3dsdk/vector3.h>
 
 using namespace std;
 using namespace k3d;
 using namespace k3d::data;
-using namespace k3d::function_node;
+using namespace k3d::function_nodes;
 
 namespace module
 {

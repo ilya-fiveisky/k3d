@@ -1,5 +1,8 @@
+#ifndef STDX_FUNCTION_TRAITS_H
+#define STDX_FUNCTION_TRAITS_H
+
 // K-3D
-// Copyright (c) 1995-2008, Timothy M. Shead
+// Copyright (c) 1995-2009, Timothy M. Shead
 //
 // Contact: tshead@k-3d.com
 //
@@ -21,20 +24,28 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <functional>
+#include <tuple>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
+namespace stdx 
 {
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
+template<typename T> 
+struct function_traits;  
 
-BOOST_AUTO_TEST_SUITE_END()
-        
+template<typename R, typename ...Args> 
+struct function_traits<std::function<R(Args...)>>
+{
+    static const size_t nargs = sizeof...(Args);
+
+    typedef R result_type;
+
+    template <size_t i>
+    struct arg
+    {
+        typedef typename std::tuple_element<i, std::tuple<Args...>>::type type;
+    };
+};
+
+} // namespace stdx
+
+#endif // !STDX_FUNCTION_TRAITS_H

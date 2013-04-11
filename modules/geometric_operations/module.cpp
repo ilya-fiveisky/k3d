@@ -21,17 +21,20 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/module.h>
-#include <k3dsdk/function_node.h>
-#include <k3dsdk/vector3.h>
-#include <k3dsdk/point3.h>
-#include <k3dsdk/plane.h>
-#include <k3dsdk/line3.h>
-#include <k3dsdk/uuid.h>
-#include <k3dsdk/geometric_operations.h>
+#include <functional>
 
+#include <k3dsdk/function_nodes.h>
+#include <k3dsdk/geometric_operations.h>
+#include <k3dsdk/line3.h>
+#include <k3dsdk/module.h>
+#include <k3dsdk/plane.h>
+#include <k3dsdk/point3.h>
+#include <k3dsdk/uuid.h>
+#include <k3dsdk/vector3.h>
+
+using namespace std;
 using namespace k3d;
-using namespace k3d::function_node;
+using namespace k3d::function_nodes;
 
 namespace module{ namespace geometric_operations
 {
@@ -40,30 +43,39 @@ category_t category("GeometricOperation");
 
 namespace subtraction
 {
-node_info the_node_info(name_t("Subtraction"), description_t("Subtracts two given vectors"), uuid(0x835bb1af, 0x95a04399, 0x856afa74, 0x92a2bda4), category);
+node_info the_node_info(name_t("Minus"), description_t("Subtracts two given vectors"), 
+        uuid(0x835bb1af, 0x95a04399, 0x856afa74, 0x92a2bda4), category);
 property_info<vector3> input1_info(name_t("a"), label_t("A"), description_t("A"));
 property_info<vector3> input2_info(name_t("b"), label_t("B"), description_t("B"));
 property_info<vector3> output_info(name_t("a_minus_b"), label_t("A - B"), description_t("A - B"));
-struct subtract { vector3 operator()(const vector3& a, const vector3& b) const {return a-b;}};
-typedef binary_function_node<the_node_info, input_property<vector3, input1_info>, input_property<vector3, input2_info>, output_property<vector3, output_info>, subtract> type;
+typedef function_node<the_node_info, minus<vector3>, output_property<vector3, output_info>, 
+        input_property<vector3, input1_info>, input_property<vector3, input2_info>> type;
 }
 
 namespace create_plane
 {
-node_info the_node_info(name_t("PlaneCreation"), description_t("Creates plane from given normal and point"), uuid(0xccc116ac, 0x3a0f4a83, 0x86eddda5, 0xc5f7a872), category);
+node_info the_node_info(name_t("PlaneCreation"), 
+        description_t("Creates plane from given normal and point"), 
+        uuid(0xccc116ac, 0x3a0f4a83, 0x86eddda5, 0xc5f7a872), category);
 property_info<vector3> normal_info(name_t("normal"), label_t("Normal"), description_t("Plane normal"));
-property_info<point3> point_info(name_t("point"), label_t("Point"), description_t("Point that belongs to plane"));
+property_info<point3> point_info(name_t("point"), label_t("Point"), 
+        description_t("Point that belongs to plane"));
 property_info<plane> output_info(name_t("plane"), label_t("Plane"), description_t("Plane"));
-struct create_plane { plane operator()(const vector3& Normal, const point3& Point) const {return plane(Normal, Point);}};
-typedef binary_function_node<the_node_info, input_property<vector3, normal_info>, input_property<point3, point_info>, output_property<plane, output_info>, create_plane> type;
+struct create_plane { plane operator()(const vector3& Normal, const point3& Point) const 
+    {return plane(Normal, Point);}};
+typedef function_node<the_node_info, create_plane, output_property<plane, output_info>, 
+        input_property<vector3, normal_info>, input_property<point3, point_info>> type;
 }
 
 namespace plane_line_intersection
 {
-node_info the_node_info(name_t("PlaneLineIntersection"), description_t("Finds intersection of given plane and line"), uuid(0x6121a41d, 0x1dad4c1b, 0x8774e8d7, 0xe896f944), category);
+node_info the_node_info(name_t("PlaneLineIntersection"), 
+        description_t("Finds intersection of given plane and line"), 
+        uuid(0x6121a41d, 0x1dad4c1b, 0x8774e8d7, 0xe896f944), category);
 property_info<plane> plane_info(name_t("plane"), label_t("Plane"), description_t("Plane"));
 property_info<line3> line_info(name_t("line"), label_t("Line"), description_t("Line"));
-property_info<point3> output_info(name_t("intersectionPoint"), label_t("Intersection Point"), description_t("Intersection Point"));
+property_info<point3> output_info(name_t("intersectionPoint"), label_t("Intersection Point"), 
+        description_t("Intersection Point"));
 struct get_intersection { 
     point3 operator()(const plane& Plane, const line3& Line) const
     {
@@ -72,7 +84,8 @@ struct get_intersection {
         return Intersection;
     }
 };
-typedef binary_function_node<the_node_info, input_property<plane, plane_info>, input_property<line3, line_info>, output_property<point3, output_info>, get_intersection> type;
+typedef function_node<the_node_info, get_intersection, output_property<point3, output_info>, 
+        input_property<plane, plane_info>, input_property<line3, line_info>> type;
 }
 
 } // namespace geometric_operations

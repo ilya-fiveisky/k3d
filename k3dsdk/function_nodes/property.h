@@ -1,5 +1,5 @@
-#ifndef K3DSDK_FUNCTION_NODE_PROPERTY_H
-#define K3DSDK_FUNCTION_NODE_PROPERTY_H
+#ifndef K3DSDK_FUNCTION_NODES_PROPERTY_H
+#define K3DSDK_FUNCTION_NODES_PROPERTY_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -24,22 +24,22 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3d-i18n-config.h>
-#include <k3dsdk/data.h>
-#include <k3dsdk/inode.h>
-#include <k3dsdk/node.h>
-#include <k3dsdk/value_demand_storage.h>
-#include <k3dsdk/pointer_demand_storage.h>
-#include <k3dsdk/function_node/property_info.h>
+#include <type_traits>
 
 #include <boost/mpl/logical.hpp>
 
-#include <type_traits>
+#include <k3d-i18n-config.h>
+#include <k3dsdk/data.h>
+#include <k3dsdk/function_nodes/property_info.h>
+#include <k3dsdk/inode.h>
+#include <k3dsdk/node.h>
+#include <k3dsdk/pointer_demand_storage.h>
+#include <k3dsdk/value_demand_storage.h>
 
 namespace k3d
 {
 
-namespace function_node
+namespace function_nodes
 {
 
 namespace detail
@@ -81,8 +81,7 @@ namespace detail
     {
         typedef property_t<value_t, tag> base;
     public:
-        typedef value_t value_type;
-        property(node& Owner) :
+        template<typename owner_t> property(owner_t& Owner) :
             base(init_owner(Owner) + init_name(Info.name()) + init_label(_(Info.label())) 
                 + init_description(_(Info.description())) + init_value(Info.default_value()))
         {
@@ -105,5 +104,5 @@ template<typename value_t, property_info<value_t>& Info> using output_property =
 
 } // namespace k3d
 
-#endif // !K3DSDK_FUNCTION_NODE_PROPERTY_H
+#endif // !K3DSDK_FUNCTION_NODES_PROPERTY_H
 

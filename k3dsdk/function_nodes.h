@@ -1,5 +1,8 @@
+#ifndef K3DSDK_FUNCTION_NODE_H
+#define K3DSDK_FUNCTION_NODE_H
+
 // K-3D
-// Copyright (c) 1995-2008, Timothy M. Shead
+// Copyright (c) 1995-2009, Timothy M. Shead
 //
 // Contact: tshead@k-3d.com
 //
@@ -21,20 +24,9 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <k3dsdk/function_nodes/property.h>
+#include <k3dsdk/function_nodes/function_node.h>
+#include <k3dsdk/function_nodes/node_info.h>
+#include <k3dsdk/function_nodes/property_info.h>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
-{
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
-
-BOOST_AUTO_TEST_SUITE_END()
-        
+#endif // !K3DSDK_FUNCTION_NODE_H

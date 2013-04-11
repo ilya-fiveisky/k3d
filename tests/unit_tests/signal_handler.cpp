@@ -21,20 +21,20 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <csignal>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
+#include <exception>
 
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
+struct access_violation : std::exception 
 {
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
+    const char* what() const noexcept {return "SIGSEGV";}
+};
+
+void signal_handler(int signal)
+{
+    throw access_violation();
 }
 
-BOOST_AUTO_TEST_SUITE_END()
-        
+typedef void (*signal_handler_pointer)(int);
+
+signal_handler_pointer prev_handler = signal(SIGSEGV , signal_handler);

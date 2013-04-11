@@ -1,5 +1,5 @@
-#ifndef K3D_ISTATE_RECORDER_MOCK_H
-#define	K3D_ISTATE_RECORDER_MOCK_H
+#ifndef K3D_TESTS_UNIT_TESTS_MOCKS_PROPERTY_STUB_H
+#define	K3D_TESTS_UNIT_TESTS_MOCKS_PROPERTY_STUB_H
 
 // K-3D
 // Copyright (c) 1995-2008, Timothy M. Shead
@@ -24,30 +24,32 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <turtle/mock.hpp>
-#include <k3dsdk/istate_recorder.h>
+#include <sigc++/signal.h>
+
+#include <k3dsdk/node.h>
+#include <k3dsdk/ihint.h>
 
 namespace k3d
 {
-    
-MOCK_BASE_CLASS( istate_recorder_mock, istate_recorder )
+namespace tests
 {
-    MOCK_METHOD( start_recording, 2 )
-	MOCK_METHOD( current_change_set, 0 )
-	MOCK_METHOD( stop_recording, 1 )
-	MOCK_METHOD( commit_change_set, 3 )
-	MOCK_METHOD( root_nodes, 0 )
-	MOCK_METHOD( current_node, 0 )
-	MOCK_METHOD( newest_node, 0 )
-	MOCK_METHOD( last_saved_node, 0 )
-	MOCK_METHOD( set_current_node, 1 )
-	MOCK_METHOD( mark_saved, 0 )
-	MOCK_METHOD( connect_recording_done_signal, 1 )
-	MOCK_METHOD( connect_node_added_signal, 1 )
-	MOCK_METHOD( connect_current_node_changed_signal, 1 )
-	MOCK_METHOD( connect_last_saved_node_changed_signal, 1 )
+    
+template<typename value_t> class property_stub
+{
+    typedef sigc::signal<void, ihint*> changed_signal_t;
+
+public:
+    typedef value_t data_type;
+    
+    template<typename owner_t> property_stub(owner_t& Owner){}
+    const value_t pipeline_value() const {return value_t();}
+    changed_signal_t& changed_signal(){return m_changed_signal;}
+
+private:
+    changed_signal_t m_changed_signal = changed_signal_t();
 };
 
+} // namespace tests
 } // namespace k3d
-#endif // !K3D_ISTATE_RECORDER_MOCK_H
+#endif // !K3D_TESTS_UNIT_TESTS_MOCKS_PROPERTY_STUB_H
 

@@ -24,13 +24,13 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/uuid.h>
 #include <k3dsdk/data.h>
+#include <k3dsdk/uuid.h>
 
 namespace k3d
 {
 
-namespace function_node
+namespace function_nodes
 {
 
 class category_t

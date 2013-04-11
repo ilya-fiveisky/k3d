@@ -1,3 +1,6 @@
+#ifndef K3D_TESTS_UNIT_TESTS_MOCKS_IPROPERTY_COLLECTION_MOCK_H
+#define	K3D_TESTS_UNIT_TESTS_MOCKS_IPROPERTY_COLLECTION_MOCK_H
+
 // K-3D
 // Copyright (c) 1995-2008, Timothy M. Shead
 //
@@ -21,20 +24,25 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <turtle/mock.hpp>
+#include <k3dsdk/iproperty_collection.h>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
+namespace k3d
 {
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
+namespace tests
+{
 
-BOOST_AUTO_TEST_SUITE_END()
-        
+MOCK_BASE_CLASS( iproperty_collection_mock, iproperty_collection )
+{
+    MOCK_METHOD( register_property, 1 )
+    MOCK_METHOD( register_properties, 1 )
+    MOCK_METHOD( unregister_property, 1 )
+    MOCK_METHOD( unregister_properties, 1 )
+    MOCK_METHOD( properties, 0 )
+    MOCK_METHOD( connect_properties_changed_signal, 1 )
+};
+
+} // namespace tests
+} // namespace k3d
+#endif // !K3D_TESTS_UNIT_TESTS_MOCKS_IPROPERTY_COLLECTION_MOCK_H
+

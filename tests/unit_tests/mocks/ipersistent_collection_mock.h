@@ -1,3 +1,6 @@
+#ifndef K3D_TESTS_UNIT_TESTS_MOCKS_IPERSISTENT_COLLECTION_MOCK_H
+#define	K3D_TESTS_UNIT_TESTS_MOCKS_IPERSISTENT_COLLECTION_MOCK_H
+
 // K-3D
 // Copyright (c) 1995-2008, Timothy M. Shead
 //
@@ -21,20 +24,22 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <turtle/mock.hpp>
+#include <k3dsdk/ipersistent_collection.h>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
+namespace k3d
 {
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
+namespace tests
+{
 
-BOOST_AUTO_TEST_SUITE_END()
-        
+MOCK_BASE_CLASS( ipersistent_collection_mock, ipersistent_collection )
+{
+    MOCK_METHOD( enable_serialization, 2 )
+    MOCK_METHOD( disable_serialization, 1 )
+    MOCK_METHOD( persistent_objects, 0 )
+};
+
+} // namespace tests
+} // namespace k3d
+#endif // !K3D_TESTS_UNIT_TESTS_MOCKS_IPERSISTENT_COLLECTION_MOCK_H
+

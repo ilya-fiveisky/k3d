@@ -29,7 +29,7 @@
 namespace k3d
 {
 
-namespace function_node
+namespace function_nodes
 {
     
 template<typename value_t> struct property_info

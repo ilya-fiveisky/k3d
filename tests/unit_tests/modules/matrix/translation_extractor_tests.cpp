@@ -1,35 +1,59 @@
-#include <boost/test/unit_test.hpp>
+// K-3D
+// Copyright (c) 1995-2008, Timothy M. Shead
+//
+// Contact: tshead@k-3d.com
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public
+// License as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// General Public License for more details.
+//
+// You should have received a copy of the GNU General Public
+// License along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+/** \file
+	\author Ilya Fiveisky (ilya.five@gmail.com)
+*/
+
+#include <modules/matrix/translation_extractor.h>
+
 #include <boost/any.hpp>
+#include <boost/test/unit_test.hpp>
+
 #include <sigc++/connection.h>
+
 #include <turtle/mock.hpp>
 
 #include <k3dsdk/algebra.h>
-#include <k3dsdk/vector3.h>
-#include <k3dsdk/vector4.h>
 #include <k3dsdk/iproperty.h>
 #include <k3dsdk/state_change_set.h>
-#include <modules/matrix/translation_extractor.h>
-#include <idocument_mock.h>
-#include <istate_recorder_mock.h>
+#include <k3dsdk/vector3.h>
+#include <k3dsdk/vector4.h>
+
+#include <fixture.h>
+#include <mocks/idocument_mock.h>
+#include <mocks/istate_recorder_mock.h>
+
+#include "tests/unit_tests/fixture.h"
 
 using namespace std;
 using namespace boost;
 using namespace sigc;
 using namespace k3d;
+using namespace k3d::tests;
 using namespace module::matrix;
 
 BOOST_AUTO_TEST_SUITE( translation_extractor_suite )
 
-BOOST_AUTO_TEST_CASE( test1 )
+BOOST_FIXTURE_TEST_CASE( test1, fixture )
 {
-    idocument_mock doc;
-    istate_recorder_mock recorder;
-    MOCK_EXPECT( doc.state_recorder ).returns( recorder );
-    state_change_set changeSet;
-    MOCK_EXPECT( recorder.current_change_set ).returns( &changeSet );
-    MOCK_EXPECT( recorder.connect_recording_done_signal ).returns( connection() );
-    
-    translation_extractor extractor(translation_extractor::get_factory(), doc);
+    translation_extractor extractor(plugin_factory(), doc_mock());
     
     auto props = extractor.properties();
     

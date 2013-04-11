@@ -22,19 +22,20 @@
 */
 
 #include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <exception>
+
+#include <k3dsdk/stdx/functional.h>
 
 using namespace std;
+using namespace stdx;
 using namespace boost;
-using namespace constexpr_string;
 
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
-{
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
-
-BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE( functional_suite )
         
+BOOST_AUTO_TEST_CASE( has_result_type_test )
+{
+    BOOST_CHECK( has_result_type<plus<int>>::value );
+    BOOST_CHECK( !has_result_type<int>::value );
+}
+        
+BOOST_AUTO_TEST_SUITE_END()

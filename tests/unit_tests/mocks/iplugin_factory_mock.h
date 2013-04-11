@@ -1,3 +1,6 @@
+#ifndef K3D_TESTS_UNIT_TESTS_MOCKS_IPLUGIN_FACTORY_H
+#define	K3D_TESTS_UNIT_TESTS_MOCKS_IPLUGIN_FACTORY_H
+
 // K-3D
 // Copyright (c) 1995-2008, Timothy M. Shead
 //
@@ -21,20 +24,27 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <turtle/mock.hpp>
+#include <k3dsdk/iplugin_factory.h>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
+namespace k3d
 {
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
+namespace tests
+{
 
-BOOST_AUTO_TEST_SUITE_END()
-        
+MOCK_BASE_CLASS( iplugin_factory_mock, iplugin_factory )
+{
+    MOCK_METHOD( factory_id, 0 )
+    MOCK_METHOD( name, 0 )
+    MOCK_METHOD( short_description, 0 )
+    MOCK_METHOD( categories, 0 )
+    MOCK_METHOD( quality, 0 )
+    MOCK_METHOD( implements, 1 )
+    MOCK_METHOD( interfaces, 0 )
+    MOCK_METHOD( metadata, 0 )
+};
+
+} // namespace tests
+} // namespace k3d
+#endif // !K3D_TESTS_UNIT_TESTS_MOCKS_IPLUGIN_FACTORY_H
+

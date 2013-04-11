@@ -1,5 +1,8 @@
+#ifndef STDX_HAS_RESULT_TYPE_H
+#define STDX_HAS_RESULT_TYPE_H
+
 // K-3D
-// Copyright (c) 1995-2008, Timothy M. Shead
+// Copyright (c) 1995-2009, Timothy M. Shead
 //
 // Contact: tshead@k-3d.com
 //
@@ -21,20 +24,27 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
-
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
+namespace stdx 
 {
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
+template <typename T>
+class has_result_type {
+    // Types "yes" and "no" are guaranteed to have different sizes,
+    // specifically sizeof(yes) == 1 and sizeof(no) == 2.
+    typedef char yes[1];
+    typedef char no[2];
+ 
+    template <typename C>
+    static yes& test(typename C::result_type*);
+ 
+    template <typename>
+    static no& test(...);
+ 
+public:
+    // If the "sizeof" the result of calling test<T>(0) would be equal to the sizeof(yes),
+    // the first overload worked and T has a nested type named result_type.
+    static constexpr bool value = sizeof(test<T>(0)) == sizeof(yes);
+};
 
-BOOST_AUTO_TEST_SUITE_END()
-        
+} // namespace stdx
+
+#endif // !STDX_HAS_RESULT_TYPE_H

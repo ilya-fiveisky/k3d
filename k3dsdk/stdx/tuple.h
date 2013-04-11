@@ -1,5 +1,8 @@
+#ifndef STDX_TUPLE_H
+#define STDX_TUPLE_H
+
 // K-3D
-// Copyright (c) 1995-2008, Timothy M. Shead
+// Copyright (c) 1995-2009, Timothy M. Shead
 //
 // Contact: tshead@k-3d.com
 //
@@ -21,20 +24,8 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <k3dsdk/stdx/tuple/iterate_over_tuple.h>
+#include <k3dsdk/stdx/tuple/misc.h>
+#include <k3dsdk/stdx/tuple/unwrap_and_forward.h>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
-{
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
-
-BOOST_AUTO_TEST_SUITE_END()
-        
+#endif // !STDX_TUPLE_H

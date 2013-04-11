@@ -25,10 +25,10 @@
 */
 
 #include <k3dsdk/document_plugin_factory.h>
-#include <k3dsdk/vector3.h>
+#include <k3dsdk/function_nodes/property.h>
 #include <k3dsdk/imatrix_sink.h>
 #include <k3dsdk/single_source.h>
-#include <k3dsdk/function_node/property.h>
+#include <k3dsdk/vector3.h>
 
 namespace module
 {
@@ -66,7 +66,7 @@ public:
    }
 
 private:
-	function_node::input_property_t<matrix4> m_input;
+	function_nodes::input_property_t<matrix4> m_input;
     
     void on_update_value(vector3& Output);
 };

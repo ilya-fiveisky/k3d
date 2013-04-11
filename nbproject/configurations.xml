@@ -11,9 +11,6 @@
       <df name="configuration">
         <in>size_type.cpp</in>
       </df>
-      <df name="constexpr_string">
-        <in>costring.h</in>
-      </df>
       <df name="docs">
         <df name="sample_module">
           <in>module.cpp</in>
@@ -23,6 +20,9 @@
         <in>gendef.cc</in>
       </df>
       <df name="k3dsdk">
+        <df name="constexpr_string">
+          <in>costring.h</in>
+        </df>
         <df name="expression">
           <in>basic_parser.cpp</in>
           <in>basic_parser.h</in>
@@ -127,13 +127,6 @@
             <in>FTVectoriser.cpp</in>
             <in>FTVectoriser.h</in>
           </df>
-        </df>
-        <df name="function_node">
-          <in>arguments.h</in>
-          <in>binary_function_node.h</in>
-          <in>node_info.h</in>
-          <in>property.h</in>
-          <in>property_info.h</in>
         </df>
         <df name="gil">
           <df name="boost">
@@ -595,6 +588,14 @@
           <in>tessmono.c</in>
           <in>tessmono.h</in>
         </df>
+        <df name="stdx">
+          <df name="functional">
+            <in>function_traits.h</in>
+            <in>has_result_type.h</in>
+          </df>
+          <in>functional.h</in>
+          <in>tuple.h</in>
+        </df>
         <df name="subdivision_surface">
           <in>catmull_clark.cpp</in>
           <in>catmull_clark.h</in>
@@ -675,7 +676,7 @@
         <in>frames.cpp</in>
         <in>frames.h</in>
         <in>fstream.h</in>
-        <in>function_node.h</in>
+        <in>function_nodes.h</in>
         <in>geometric_operations.cpp</in>
         <in>geometric_operations.h</in>
         <in>geometry.cpp</in>
@@ -933,7 +934,6 @@
         <in>resolutions.cpp</in>
         <in>resolutions.h</in>
         <in>result.h</in>
-        <in>scalar_source.cpp</in>
         <in>scalar_source.h</in>
         <in>scripted_node.h</in>
         <in>scripted_plugin.h</in>
@@ -2182,15 +2182,31 @@
           <in>xml_xpath.cpp</in>
         </df>
         <df name="unit_tests">
+          <df name="mocks">
+            <in>idocument_mock.h</in>
+            <in>inode_mock.h</in>
+            <in>ipersistent_collection_mock.h</in>
+            <in>iplugin_factory_mock.h</in>
+            <in>iproperty_collection_mock.h</in>
+            <in>istate_recorder_mock.h</in>
+            <in>node_mock.h</in>
+            <in>node_stub.h</in>
+            <in>property_stub.h</in>
+          </df>
           <df name="modules">
             <df name="matrix">
               <in>translation_extractor_tests.cpp</in>
             </df>
           </df>
+          <df name="sdk">
+            <df name="stdx">
+              <in>functional_tests.cpp</in>
+            </df>
+            <in>function_nodes_tests.cpp</in>
+          </df>
           <in>costring_tests.cpp</in>
-          <in>idocument_mock.h</in>
-          <in>istate_recorder_mock.h</in>
           <in>main.cpp</in>
+          <in>signal_handler.cpp</in>
         </df>
       </df>
       <df name="uuidgen">
@@ -2247,8 +2263,6 @@
       <item path="configuration/size_type.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
         </ccTool>
-      </item>
-      <item path="constexpr_string/costring.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="docs/sample_module/module.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
@@ -3824,6 +3838,8 @@
       </item>
       <item path="k3dsdk/cone.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="k3dsdk/constexpr_string/costring.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="k3dsdk/contributors.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
           <incDir>
@@ -4762,23 +4778,7 @@
       </item>
       <item path="k3dsdk/ftgl/src/FTVectoriser.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="k3dsdk/function_node.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="k3dsdk/function_node/arguments.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="k3dsdk/function_node/binary_function_node.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="k3dsdk/function_node/node_info.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="k3dsdk/function_node/property.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="k3dsdk/function_node/property_info.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="k3dsdk/function_nodes.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="k3dsdk/geometric_operations.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
@@ -8617,42 +8617,6 @@
       </item>
       <item path="k3dsdk/result.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="k3dsdk/scalar_source.cpp" ex="false" tool="1" flavor2="4">
-        <ccTool>
-          <incDir>
-            <pElem>/usr/include</pElem>
-            <pElem>/usr/include/sigc++-2.0</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/sigc++-2.0/include</pElem>
-            <pElem>/usr/include/glibmm-2.4</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/glibmm-2.4/include</pElem>
-            <pElem>/usr/include/glib-2.0</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/glib-2.0/include</pElem>
-            <pElem>/usr/include/gtk-2.0</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/gtk-2.0/include</pElem>
-            <pElem>/usr/include/gtkmm-2.4</pElem>
-            <pElem>/usr/include/gtkmm-2.4/gtkmm</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/gtkmm-2.4/include</pElem>
-            <pElem>/usr/include/pango-1.0</pElem>
-            <pElem>/usr/include/pangomm-1.4</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/pangomm-1.4/include</pElem>
-            <pElem>/usr/include/atk-1.0</pElem>
-            <pElem>/usr/include/atkmm-1.6</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/atkmm-1.6/include</pElem>
-            <pElem>/usr/include/gdkmm-2.4</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/gdkmm-2.4/include</pElem>
-            <pElem>/usr/include/gdk-pixbuf-2.0</pElem>
-            <pElem>/usr/include/cairo</pElem>
-            <pElem>/usr/include/cairomm-1.0</pElem>
-            <pElem>/usr/lib/x86_64-linux-gnu/cairomm-1.0/include</pElem>
-            <pElem>/usr/include/giomm-2.4</pElem>
-            <pElem>/usr/include/freetype2</pElem>
-            <pElem>.</pElem>
-            <pElem>../k3d-build/k3dsdk</pElem>
-            <pElem>../k3d-build/application</pElem>
-            <pElem>/usr/include/gnome-vfs-2.0</pElem>
-          </incDir>
-        </ccTool>
-      </item>
       <item path="k3dsdk/scalar_source.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="k3dsdk/scripted_node.h" ex="false" tool="3" flavor2="0">
@@ -9291,6 +9255,20 @@
         </ccTool>
       </item>
       <item path="k3dsdk/state_change_set.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="k3dsdk/stdx/functional.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="k3dsdk/stdx/functional/function_traits.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="k3dsdk/stdx/functional/has_result_type.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="k3dsdk/stdx/tuple.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="k3dsdk/stream_io_ri.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
@@ -14520,16 +14498,63 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="tests/unit_tests/idocument_mock.h" ex="false" tool="3" flavor2="0">
+      <item path="tests/unit_tests/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/unit_tests/istate_recorder_mock.h"
+      <item path="tests/unit_tests/mocks/idocument_mock.h"
             ex="false"
             tool="3"
             flavor2="0">
       </item>
-      <item path="tests/unit_tests/main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/unit_tests/mocks/inode_mock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/mocks/ipersistent_collection_mock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/mocks/iplugin_factory_mock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/mocks/iproperty_collection_mock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/mocks/istate_recorder_mock.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/mocks/node_mock.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/unit_tests/mocks/node_stub.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/unit_tests/mocks/property_stub.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="tests/unit_tests/modules/matrix/translation_extractor_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/sdk/function_nodes_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/sdk/stdx/functional_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/signal_handler.cpp"
             ex="false"
             tool="1"
             flavor2="0">

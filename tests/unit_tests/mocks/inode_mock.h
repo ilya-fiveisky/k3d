@@ -1,3 +1,6 @@
+#ifndef K3D_TESTS_UNIT_TESTS_MOCKS_INODE_MOCK_H
+#define	K3D_TESTS_UNIT_TESTS_MOCKS_INODE_MOCK_H
+
 // K-3D
 // Copyright (c) 1995-2008, Timothy M. Shead
 //
@@ -21,20 +24,25 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
-#include <k3dsdk/constexpr_string/costring.h>
+#include <turtle/mock.hpp>
+#include <k3dsdk/inode.h>
 
-using namespace std;
-using namespace boost;
-using namespace constexpr_string;
-
-BOOST_AUTO_TEST_SUITE( costring_suite )
-
-BOOST_AUTO_TEST_CASE( test1 )
+namespace k3d
 {
-    costring costr("zzz");
-    BOOST_CHECK( costr.size() == 3 );
-}
+namespace tests
+{
 
-BOOST_AUTO_TEST_SUITE_END()
-        
+MOCK_BASE_CLASS( inode_mock, inode )
+{
+    MOCK_METHOD( set_name, 1 )
+    MOCK_METHOD( name, 0 )
+    MOCK_METHOD( factory, 0 )
+    MOCK_METHOD( document, 0 )
+    MOCK_METHOD( deleted_signal, 0 )
+    MOCK_METHOD( name_changed_signal, 0 )
+};
+
+} // namespace tests
+} // namespace k3d
+#endif // !K3D_TESTS_UNIT_TESTS_MOCKS_INODE_MOCK_H
+

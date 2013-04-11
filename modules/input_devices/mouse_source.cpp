@@ -27,14 +27,14 @@
 #include <k3dsdk/value_demand_storage.h>
 #include <k3dsdk/point2.h>
 #include <k3dsdk/imouse_observer.h>
-#include <k3dsdk/function_node.h>
+#include <k3dsdk/function_nodes.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
 #include <functional>
 
 using namespace k3d;
-using namespace k3d::function_node;
+using namespace k3d::function_nodes;
 using namespace boost;
 using namespace boost::posix_time;
 using namespace std;

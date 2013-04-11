@@ -1,8 +1,8 @@
-#ifndef K3D_IDOCUMENT_MOCK_H
-#define	K3D_IDOCUMENT_MOCK_H
+#ifndef STDX_FUNCTIONAL_H
+#define STDX_FUNCTIONAL_H
 
 // K-3D
-// Copyright (c) 1995-2008, Timothy M. Shead
+// Copyright (c) 1995-2009, Timothy M. Shead
 //
 // Contact: tshead@k-3d.com
 //
@@ -24,24 +24,7 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <turtle/mock.hpp>
-#include <k3dsdk/idocument.h>
+#include <k3dsdk/stdx/functional/function_traits.h>
+#include <k3dsdk/stdx/functional/has_result_type.h>
 
-namespace k3d
-{
-    
-MOCK_BASE_CLASS( idocument_mock, idocument )
-{
-    MOCK_METHOD( nodes, 0 )
-    MOCK_METHOD( pipeline, 0 )
-    MOCK_METHOD( pipeline_profiler, 0 )
-    MOCK_METHOD( state_recorder, 0 )
-    MOCK_METHOD( unique_node_names, 0 )
-    MOCK_METHOD( path, 0 )
-    MOCK_METHOD( title, 0 )
-    MOCK_METHOD( close_signal, 0 )
-};
-
-} // namespace k3d
-#endif // !K3D_IDOCUMENT_MOCK_H
-
+#endif // !STDX_FUNCTIONAL_H
