@@ -128,6 +128,9 @@
             <in>FTVectoriser.h</in>
           </df>
         </df>
+        <df name="function_nodes">
+          <in>multi_function_node.h</in>
+        </df>
         <df name="gil">
           <df name="boost">
             <df name="gil">
@@ -1154,6 +1157,9 @@
           <in>points_to_blobby.cpp</in>
           <in>segment.cpp</in>
           <in>subtract.cpp</in>
+        </df>
+        <df name="boolean">
+          <in>module.cpp</in>
         </df>
         <df name="bundled_renderman_engines">
           <in>aqsis.cpp</in>
@@ -2205,6 +2211,7 @@
             <in>function_nodes_tests.cpp</in>
           </df>
           <in>costring_tests.cpp</in>
+          <in>fixture.h</in>
           <in>main.cpp</in>
           <in>signal_handler.cpp</in>
         </df>
@@ -4779,6 +4786,11 @@
       <item path="k3dsdk/ftgl/src/FTVectoriser.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="k3dsdk/function_nodes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="k3dsdk/function_nodes/multi_function_node.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="k3dsdk/geometric_operations.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
@@ -10627,6 +10639,10 @@
         <ccTool>
         </ccTool>
       </item>
+      <item path="modules/boolean/module.cpp" ex="false" tool="1" flavor2="4">
+        <ccTool>
+        </ccTool>
+      </item>
       <item path="modules/bundled_renderman_engines/aqsis.cpp"
             ex="false"
             tool="1"
@@ -14497,6 +14513,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="tests/unit_tests/fixture.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/unit_tests/main.cpp" ex="false" tool="1" flavor2="0">
       </item>

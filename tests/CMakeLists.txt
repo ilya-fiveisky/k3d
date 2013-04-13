@@ -96,6 +96,8 @@ FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders/light)
 FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders/surface)
 FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders/volume)
 
+ADD_SUBDIRECTORY(boolean)
+
 # Run tests that extract information about the underlying platform
 ADD_SUBDIRECTORY(platform)
 
