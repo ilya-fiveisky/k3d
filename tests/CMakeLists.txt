@@ -148,6 +148,8 @@ ADD_SUBDIRECTORY(animation)
 # Run tests that exercise the standard user interface ...
 ADD_SUBDIRECTORY(ngui)
 
+ADD_SUBDIRECTORY(node)
+
 # Run miscellaneous odds-and-ends ...
 ADD_SUBDIRECTORY(other)
 

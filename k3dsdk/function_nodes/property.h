@@ -56,7 +56,7 @@ namespace detail
     
     template<> struct property_<inode*, in_tag>
     {
-        typedef k3d::data::container_t<inode*, immutable_name, change_signal, with_undo, node_storage, no_constraint, node_property, with_serialization> type;
+        typedef k3d::data::container_t<inode*, immutable_name, change_signal, with_undo, node_storage, no_constraint, node_property, no_serialization> type;
     };
     
     template<typename value_t> struct property_<value_t, out_tag, typename std::enable_if<boost::mpl::not_<std::is_pointer<value_t>>::value>::type>

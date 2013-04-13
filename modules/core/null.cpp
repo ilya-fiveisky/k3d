@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 /** \file
-		\brief An object that converts a scalar to a string using strftime()
+		\brief Empty node
 		\author Timothy M. Shead (tshead@k-3d.com)
 */
 
