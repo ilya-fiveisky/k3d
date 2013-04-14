@@ -86,7 +86,8 @@ template<
 class multi_function_node :
 	public node
 {
-    static_assert(std::tuple_size<typename outputs_t::params_type>::value > 0, "Number of outputs should be > 0.");
+    static_assert(std::tuple_size<typename outputs_t::params_type>::value > 0, 
+            "Number of outputs should be > 0.");
     typedef multi_function_node<NodeInfo, outputs_t, inputs_t> this_t;
 	typedef node base;
 

@@ -1,5 +1,5 @@
-#ifndef STDX_UNWRAP_AND_FORWARD_H
-#define STDX_UNWRAP_AND_FORWARD_H
+#ifndef STDX_TUPLE_UNWRAP_AND_FORWARD_H
+#define STDX_TUPLE_UNWRAP_AND_FORWARD_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -60,6 +60,15 @@ unwrap_and_forward(const F& f, const Convert& convert, detail::int_tuple<Indexes
     return f(convert(std::get<Indexes>(args))...);
 }
 
+template<typename F, typename Convert, int... Indexes, typename... Args>
+inline auto
+unwrap_and_forward(F& f, const Convert& convert, detail::int_tuple<Indexes...>, 
+        std::tuple<Args...>& args) 
+-> decltype(f(convert(std::get<Indexes>(args))...))
+{
+    return f(convert(std::get<Indexes>(args))...);
+}
+
 } // namespace stdx
 
-#endif // !STDX_UNWRAP_AND_FORWARD_H
+#endif // !STDX_TUPLE_UNWRAP_AND_FORWARD_H

@@ -21,10 +21,11 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <boost/test/unit_test.hpp>
+#include <k3dsdk/stdx/functional.h>
+
 #include <exception>
 
-#include <k3dsdk/stdx/functional.h>
+#include <boost/test/unit_test.hpp>
 
 using namespace std;
 using namespace stdx;

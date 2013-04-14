@@ -1,8 +1,5 @@
-#ifndef STDX_FUNCTIONAL_FUNCTION_TRAITS_H
-#define STDX_FUNCTIONAL_FUNCTION_TRAITS_H
-
 // K-3D
-// Copyright (c) 1995-2009, Timothy M. Shead
+// Copyright (c) 1995-2008, Timothy M. Shead
 //
 // Contact: tshead@k-3d.com
 //
@@ -24,30 +21,38 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <cstddef>
+#include <k3dsdk/stdx/tuple.h>
 
+#include <exception>
 #include <functional>
 #include <tuple>
 
-namespace stdx 
-{
-template<typename T> 
-struct function_traits;  
+#include <boost/test/unit_test.hpp>
 
-template<typename R, typename ...Args> 
-struct function_traits<std::function<R(Args...)>>
-{
-    static const size_t nargs = sizeof...(Args);
+using namespace std;
+using namespace stdx;
+using namespace boost;
 
-    typedef R result_type;
-
-    template <size_t i>
-    struct arg
-    {
-        typedef typename std::tuple_element<i, std::tuple<Args...>>::type type;
-    };
+BOOST_AUTO_TEST_SUITE( tuple_suite )
+        
+struct accum { 
+    int operator()(const int& a, const int& b) {
+        acc += a + b;
+        return acc;
+    }
+    int acc{0};
 };
 
-} // namespace stdx
+BOOST_AUTO_TEST_CASE( unwrap_and_forward_test )
+{
+    auto t = make_tuple(1, 2);
+    BOOST_CHECK_EQUAL( -3, unwrap_and_forward(plus<int>(), negate<int>(), 
+            typename make_indexes<int, int>::type(), t) );
+    auto acc = accum();
+    BOOST_CHECK_EQUAL( -3, unwrap_and_forward(acc, negate<int>(), 
+            typename make_indexes<int, int>::type(), t) );
+    BOOST_CHECK_EQUAL( -3, acc.acc );
+}
+        
+BOOST_AUTO_TEST_SUITE_END()
 
-#endif // !STDX_FUNCTIONAL_FUNCTION_TRAITS_H

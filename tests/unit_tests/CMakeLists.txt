@@ -10,11 +10,13 @@ LINK_DIRECTORIES(${K3D_SIGC_LIB_DIRS})
 
 LINK_LIBRARIES(k3dsdk)
 
-ADD_EXECUTABLE(unit_tests main.cpp 
-    signal_handler.cpp
+ADD_EXECUTABLE(unit_tests main.cpp signal_handler.cpp
+    costring_tests.cpp
     modules/matrix/translation_extractor_tests.cpp ${k3d_SOURCE_DIR}/modules/matrix/translation_extractor.cpp
-    sdk/function_nodes_tests.cpp sdk/stdx/functional_tests.cpp
-    costring_tests.cpp)
+    sdk/function_nodes_tests.cpp
+    sdk/stdx/functional_tests.cpp
+    sdk/stdx/tuple_tests.cpp
+    )
 
 K3D_TEST(unit_tests TARGET unit_tests LABELS unit_tests)
 
