@@ -36,7 +36,9 @@
 #include <k3dsdk/color.h>
 #include <k3dsdk/idocument.h>
 #include <k3dsdk/inode.h>
+#include <k3dsdk/line3.h>
 #include <k3dsdk/mesh.h>
+#include <k3dsdk/plane.h>
 #include <k3dsdk/render_state_ri.h>
 #include <k3dsdk/selection.h>
 #include <k3dsdk/texture3.h>
@@ -104,6 +106,12 @@ const object any_to_python(const boost::any& Value)
 	if(type == typeid(k3d::color))
 		return object(boost::any_cast<k3d::color>(Value));
 
+    if(type == typeid(k3d::line3))
+		return object(boost::any_cast<k3d::line3>(Value));
+    
+    if(type == typeid(k3d::plane))
+		return object(boost::any_cast<k3d::plane>(Value));
+    
 	if(type == typeid(k3d::point2))
 		return object(boost::any_cast<k3d::point2>(Value));
 
@@ -344,6 +352,12 @@ const boost::any python_to_any(const object& Value, const std::type_info& Target
 
 	if(TargetType == typeid(k3d::color))
 		return boost::any(extract<k3d::color>(Value)());
+
+    if(TargetType == typeid(k3d::line3))
+		return boost::any(extract<k3d::line3>(Value)());
+    
+    if(TargetType == typeid(k3d::plane))
+		return boost::any(extract<k3d::plane>(Value)());
 
 	if(TargetType == typeid(k3d::point3))
 		return boost::any(from_sequence<k3d::point3, k3d::double_t, 3>(Value));

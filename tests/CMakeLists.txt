@@ -96,62 +96,63 @@ FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders/light)
 FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders/surface)
 FILE(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/shaders/volume)
 
-ADD_SUBDIRECTORY(boolean)
-
-# Run tests that extract information about the underlying platform
-ADD_SUBDIRECTORY(platform)
-
-# Run tests that enforce coding-standards
-ADD_SUBDIRECTORY(code)
-
-# Run tests that verify the functionality of the testing system itself
-ADD_SUBDIRECTORY(testing)
-
-# Run tests that exercise the C++ SDK
-ADD_SUBDIRECTORY(sdk)
-
-# Run tests that exercise the Python SDK
-ADD_SUBDIRECTORY(python)
-
-# Run tests that exercise double-related functionality
-ADD_SUBDIRECTORY(double)
-
-ADD_SUBDIRECTORY(int32)
-
-ADD_SUBDIRECTORY(color)
-
-ADD_SUBDIRECTORY(vector3)
-
-# Run tests that exercise matrix-related functionality
-ADD_SUBDIRECTORY(matrix)
-
-ADD_SUBDIRECTORY(string)
+# Run tests that exercise animation ...
+ADD_SUBDIRECTORY(animation)
 
 # Run tests that exercise bitmap-related functionality
 ADD_SUBDIRECTORY(bitmap)
 
+ADD_SUBDIRECTORY(boolean)
+
+# Run tests that enforce coding-standards
+ADD_SUBDIRECTORY(code)
+
+ADD_SUBDIRECTORY(color)
+
+# Run tests that exercise double-related functionality
+ADD_SUBDIRECTORY(double)
+
+ADD_SUBDIRECTORY(geometric_operations)
+
+ADD_SUBDIRECTORY(int32)
+
+# Run tests that exercise matrix-related functionality
+ADD_SUBDIRECTORY(matrix)
+
 # Run tests that exercise mesh-related functionality
 ADD_SUBDIRECTORY(mesh)
-
-# Run tests that exercise shaders ...
-ADD_SUBDIRECTORY(shaders)
-
-# Run tests that exercise parallel computation ...
-ADD_SUBDIRECTORY(parallel)
-
-# Run tests that exercise offscreen rendering ...
-ADD_SUBDIRECTORY(offscreen)
-
-# Run tests that exercise animation ...
-ADD_SUBDIRECTORY(animation)
 
 # Run tests that exercise the standard user interface ...
 ADD_SUBDIRECTORY(ngui)
 
 ADD_SUBDIRECTORY(node)
 
+# Run tests that exercise offscreen rendering ...
+ADD_SUBDIRECTORY(offscreen)
+
 # Run miscellaneous odds-and-ends ...
 ADD_SUBDIRECTORY(other)
 
+# Run tests that exercise parallel computation ...
+ADD_SUBDIRECTORY(parallel)
+
+# Run tests that extract information about the underlying platform
+ADD_SUBDIRECTORY(platform)
+
+# Run tests that exercise the Python SDK
+ADD_SUBDIRECTORY(python)
+
+# Run tests that exercise the C++ SDK
+ADD_SUBDIRECTORY(sdk)
+
+# Run tests that exercise shaders ...
+ADD_SUBDIRECTORY(shaders)
+
+ADD_SUBDIRECTORY(string)
+
+# Run tests that verify the functionality of the testing system itself
+ADD_SUBDIRECTORY(testing)
+
 ADD_SUBDIRECTORY(unit_tests)
 
+ADD_SUBDIRECTORY(vector3)

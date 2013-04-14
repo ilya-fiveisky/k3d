@@ -1,0 +1,29 @@
+K3D_TEST(geometric_operations.VectorSubtraction
+	K3D_PYTHON_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/geometric_operations.VectorSubtraction.py
+	REQUIRES K3D_BUILD_GEOMETRIC_OPERATIONS_MODULE
+	LABELS geometric_operations VectorSubtraction)
+
+K3D_TEST(geometric_operations.PointSubtraction
+	K3D_PYTHON_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/geometric_operations.PointSubtraction.py
+	REQUIRES K3D_BUILD_GEOMETRIC_OPERATIONS_MODULE
+	LABELS geometric_operations PointSubtraction)
+
+K3D_TEST(geometric_operations.PlaneCreation
+	K3D_PYTHON_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/geometric_operations.PlaneCreation.py
+	REQUIRES K3D_BUILD_GEOMETRIC_OPERATIONS_MODULE
+	LABELS geometric_operations PlaneCreation)
+
+K3D_TEST(geometric_operations.PlaneLineIntersection
+	K3D_PYTHON_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/geometric_operations.PlaneLineIntersection.py
+	REQUIRES K3D_BUILD_GEOMETRIC_OPERATIONS_MODULE
+	LABELS geometric_operations PlaneLineIntersection)
+
+K3D_TEST(geometric_operations.PointToVector
+	K3D_PYTHON_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/geometric_operations.PointToVector.py
+	REQUIRES K3D_BUILD_GEOMETRIC_OPERATIONS_MODULE
+	LABELS geometric_operations PointToVector)
+
+K3D_TEST(geometric_operations.VectorToPoint
+	K3D_PYTHON_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/geometric_operations.VectorToPoint.py
+	REQUIRES K3D_BUILD_GEOMETRIC_OPERATIONS_MODULE
+	LABELS geometric_operations VectorToPoint)

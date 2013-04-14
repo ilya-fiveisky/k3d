@@ -81,8 +81,10 @@
 #include <k3dsdk/iuri_handler.h>
 #include <k3dsdk/ivector3_source.h>
 #include <k3dsdk/ivolume_shader_ri.h>
+#include <k3dsdk/line3.h>
 #include <k3dsdk/log.h>
 #include <k3dsdk/mesh.h>
+#include <k3dsdk/plane.h>
 #include <k3dsdk/rectangle.h>
 #include <k3dsdk/selection.h>
 #include <k3dsdk/texture3.h>
@@ -229,10 +231,12 @@ void initialize_types()
 	register_type(typeid(k3d::iunknown*), "k3d::iunknown*");
 	register_type(typeid(k3d::iuri_handler), "k3d::iuri_handler");
 	register_type(typeid(k3d::ivector3_source), "k3d::ivector3_source");
+    register_type(typeid(k3d::line3), "k3d::line3");
 	register_type(typeid(k3d::matrix4), "k3d::matrix4");
 	register_type(typeid(k3d::mesh), "k3d::mesh");
 	register_type(typeid(k3d::mesh*), "k3d::mesh*");
 	register_type(typeid(k3d::normal3), "k3d::normal3");
+    register_type(typeid(k3d::plane), "k3d::plane");
 	register_type(typeid(k3d::point2), "k3d::point2");
 	register_type(typeid(k3d::point3), "k3d::point3");
 	register_type(typeid(k3d::point4), "k3d::point4");

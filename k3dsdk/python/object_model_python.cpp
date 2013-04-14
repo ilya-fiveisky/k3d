@@ -59,6 +59,7 @@
 #include <k3dsdk/python/ifile_change_notifier_python.h>
 #include <k3dsdk/python/iunknown_python.h>
 #include <k3dsdk/python/linear_curve_python.h>
+#include <k3dsdk/python/line3_python.h>
 #include <k3dsdk/python/log_python.h>
 #include <k3dsdk/python/matrix4_python.h>
 #include <k3dsdk/python/mesh_python.h>
@@ -72,6 +73,7 @@
 #include <k3dsdk/python/object_model_python.h>
 #include <k3dsdk/python/paraboloid_python.h>
 #include <k3dsdk/python/parallel_python.h>
+#include <k3dsdk/python/plane_python.h>
 #include <k3dsdk/python/plugin_python.h>
 #include <k3dsdk/python/point2_python.h>
 #include <k3dsdk/python/point3_python.h>
@@ -316,12 +318,14 @@ BOOST_PYTHON_MODULE(k3d)
 	define_class_file_signal();
 	define_class_idocument();
 	define_class_iunknown();
+    define_class_line3();
 	define_class_matrix4();
 	define_class_mesh();
 	define_class_const_mesh();
 	define_class_named_arrays();
 	define_class_named_tables();
 	define_class_normal3();
+    define_class_plane();
 	define_class_point2();
 	define_class_point3();
 	define_class_point4();

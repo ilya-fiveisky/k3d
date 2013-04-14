@@ -46,10 +46,14 @@ K3D_ADD_LIBRARY(k3dsdk-python-values SHARED
 	euler_angles_python.h
 	filesystem_python.cpp
 	filesystem_python.h
+    line3_python.cpp
+    line3_python.h
 	matrix4_python.cpp
 	matrix4_python.h
 	normal3_python.cpp
 	normal3_python.h
+    plane_python.cpp
+    plane_python.h
 	point2_python.cpp
 	point2_python.h
 	point3_python.cpp
