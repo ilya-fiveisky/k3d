@@ -14,6 +14,7 @@ ADD_EXECUTABLE(unit_tests main.cpp signal_handler.cpp
     costring_tests.cpp
     modules/matrix/translation_extractor_tests.cpp ${k3d_SOURCE_DIR}/modules/matrix/translation_extractor.cpp
     sdk/function_nodes_tests.cpp
+    sdk/memorization_node_tests.cpp
     sdk/stdx/functional_tests.cpp
     sdk/stdx/tuple_tests.cpp
     )

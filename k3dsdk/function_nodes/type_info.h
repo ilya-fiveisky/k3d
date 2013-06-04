@@ -1,5 +1,5 @@
-#ifndef K3DSDK_FUNCTION_NODES_PROPERTY_INFO_H
-#define K3DSDK_FUNCTION_NODES_PROPERTY_INFO_H
+#ifndef K3DSDK_FUNCTION_NODES_TYPE_INFO_H
+#define K3DSDK_FUNCTION_NODES_TYPE_INFO_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -32,22 +32,15 @@ namespace k3d
 namespace function_nodes
 {
     
-template<typename value_t> struct property_info
+template<typename value_t> struct type_info
 {
-    property_info(const name_t& Name, const label_t& Label, const description_t& Description, const value_t& DefaultValue = value_t()):
-    m_name(Name.name()), m_label(Label.label()), m_description(Description.description()), m_default_value(DefaultValue) {}
+    type_info(const value_t& DefaultValue): m_default_value(DefaultValue) {}
     
-    virtual ~property_info(){}
+    virtual ~type_info(){}
     
-    const char* name() const {return m_name;}
-    const char* label() const {return m_label;}
-    const char* description() const {return m_description;}
     value_t default_value() const {return m_default_value;}
     
 private:
-    const char* m_name;
-    const char* m_label;
-    const char* m_description;
     value_t m_default_value;
 };
 
@@ -55,5 +48,4 @@ private:
 
 } // namespace k3d
 
-#endif // !K3DSDK_FUNCTION_NODES_PROPERTY_INFO_H
-
+#endif // !K3DSDK_FUNCTION_NODES_TYPE_INFO_H

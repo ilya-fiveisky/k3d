@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="88">
+<configurationDescriptor version="89">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="." name="k3d">
+    <df root="." name="0">
       <df name="application">
         <in>k3d_main.cpp</in>
         <in>k3d_main.h</in>
@@ -130,6 +130,7 @@
         </df>
         <df name="function_nodes">
           <in>multi_function_node.h</in>
+          <in>type_info.h</in>
         </df>
         <df name="gil">
           <df name="boost">
@@ -425,6 +426,8 @@
           <in>iunknown_python.h</in>
           <in>iuser_interface_python.cpp</in>
           <in>iuser_interface_python.h</in>
+          <in>line3_python.cpp</in>
+          <in>line3_python.h</in>
           <in>linear_curve_python.cpp</in>
           <in>linear_curve_python.h</in>
           <in>log_python.cpp</in>
@@ -458,6 +461,8 @@
           <in>parallel_python.h</in>
           <in>particle_python.cpp</in>
           <in>particle_python.h</in>
+          <in>plane_python.cpp</in>
+          <in>plane_python.h</in>
           <in>plugin_python.cpp</in>
           <in>plugin_python.h</in>
           <in>point2_python.cpp</in>
@@ -834,6 +839,7 @@
         <in>matrix_source.h</in>
         <in>measurement.cpp</in>
         <in>measurement.h</in>
+        <in>memorization_node.h</in>
         <in>mesh.cpp</in>
         <in>mesh.h</in>
         <in>mesh_deformation_modifier.cpp</in>
@@ -2153,6 +2159,9 @@
         <in>main.cpp</in>
       </df>
       <df name="tests">
+        <df name="geometric_operations">
+          <in>geometric_operations.PointSubtraction.py</in>
+        </df>
         <df name="platform">
           <in>platform_floating_point.cpp</in>
           <in>platform_normalized.cpp</in>
@@ -2207,6 +2216,7 @@
           <df name="sdk">
             <df name="stdx">
               <in>functional_tests.cpp</in>
+              <in>tuple_tests.cpp</in>
             </df>
             <in>function_nodes_tests.cpp</in>
           </df>
@@ -2250,6 +2260,9 @@
           <executablePath></executablePath>
           <ccTool>
             <standard>8</standard>
+            <incDir>
+              <pElem>/home/ilya/Data/workspace/K-3D/k3d-build/k3dsdk</pElem>
+            </incDir>
           </ccTool>
         </makeTool>
       </makefileType>
@@ -2275,14 +2288,7 @@
         <ccTool>
         </ccTool>
       </item>
-      <folder path="k3d">
-        <ccTool>
-          <incDir>
-            <pElem>/home/ilya/Data/workspace/K-3D/k3d-build/k3dsdk</pElem>
-          </incDir>
-        </ccTool>
-      </folder>
-      <folder path="k3d/application">
+      <folder path="0/application">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2318,7 +2324,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/configuration">
+      <folder path="0/configuration">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2354,7 +2360,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/docs">
+      <folder path="0/docs">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2390,7 +2396,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/gendef">
+      <folder path="0/gendef">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2426,7 +2432,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/Half">
+      <folder path="0/k3dsdk/Half">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2462,7 +2468,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/expression">
+      <folder path="0/k3dsdk/expression">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2498,7 +2504,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/ftgl">
+      <folder path="0/k3dsdk/ftgl">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2534,7 +2540,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/gl">
+      <folder path="0/k3dsdk/gl">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2570,7 +2576,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/ngui">
+      <folder path="0/k3dsdk/ngui">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2606,7 +2612,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/parallel">
+      <folder path="0/k3dsdk/parallel">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2642,7 +2648,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/python">
+      <folder path="0/k3dsdk/python">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2679,7 +2685,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/qtui">
+      <folder path="0/k3dsdk/qtui">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2715,7 +2721,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/resource">
+      <folder path="0/k3dsdk/resource">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2751,7 +2757,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/k3dsdk/subdivision_surface">
+      <folder path="0/k3dsdk/subdivision_surface">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2787,7 +2793,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/make-module-proxy">
+      <folder path="0/make-module-proxy">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2823,7 +2829,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules">
+      <folder path="0/modules">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -2859,7 +2865,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_animation_timeline_panel">
+      <folder path="0/modules/ngui_animation_timeline_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2867,7 +2873,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_knot_vector_control">
+      <folder path="0/modules/ngui_knot_vector_control">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2875,7 +2881,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_mesh_control">
+      <folder path="0/modules/ngui_mesh_control">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2883,7 +2889,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_node_list_panel">
+      <folder path="0/modules/ngui_node_list_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2891,7 +2897,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_node_properties_panel">
+      <folder path="0/modules/ngui_node_properties_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2899,7 +2905,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_parent_tool">
+      <folder path="0/modules/ngui_parent_tool">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2907,7 +2913,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_pipeline_profiler_panel">
+      <folder path="0/modules/ngui_pipeline_profiler_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2915,7 +2921,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_rectangle_control">
+      <folder path="0/modules/ngui_rectangle_control">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2923,7 +2929,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_render_region_tool">
+      <folder path="0/modules/ngui_render_region_tool">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2931,7 +2937,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_selection_control">
+      <folder path="0/modules/ngui_selection_control">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2939,7 +2945,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_snap_tool">
+      <folder path="0/modules/ngui_snap_tool">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2947,7 +2953,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_timeline_panel">
+      <folder path="0/modules/ngui_timeline_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2955,7 +2961,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_tool_properties_panel">
+      <folder path="0/modules/ngui_tool_properties_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2963,7 +2969,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_toolbar_panel">
+      <folder path="0/modules/ngui_toolbar_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2971,7 +2977,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_undo_tree_panel">
+      <folder path="0/modules/ngui_undo_tree_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2979,7 +2985,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/ngui_uv_editor_panel">
+      <folder path="0/modules/ngui_uv_editor_panel">
         <ccTool>
           <incDir>
             <pElem>/usr/include/gtkglext-1.0</pElem>
@@ -2987,14 +2993,14 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/modules/python">
+      <folder path="0/modules/python">
         <ccTool>
           <incDir>
             <pElem>/usr/include/python3.2mu</pElem>
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/renderframe">
+      <folder path="0/renderframe">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -3030,7 +3036,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/renderjob">
+      <folder path="0/renderjob">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -3066,7 +3072,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/resource-compiler">
+      <folder path="0/resource-compiler">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -3102,7 +3108,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/sl2xml">
+      <folder path="0/sl2xml">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -3138,7 +3144,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/tests">
+      <folder path="0/tests">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -3174,7 +3180,7 @@
           </incDir>
         </ccTool>
       </folder>
-      <folder path="k3d/uuidgen">
+      <folder path="0/uuidgen">
         <ccTool>
           <incDir>
             <pElem>/usr/include</pElem>
@@ -4792,6 +4798,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="k3dsdk/function_nodes/type_info.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="k3dsdk/geometric_operations.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
           <incDir>
@@ -5635,6 +5643,8 @@
         </ccTool>
       </item>
       <item path="k3dsdk/measurement.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="k3dsdk/memorization_node.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="k3dsdk/mesh.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
@@ -8055,6 +8065,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="k3dsdk/python/line3_python.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="k3dsdk/python/line3_python.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="k3dsdk/python/linear_curve_python.cpp"
             ex="false"
             tool="1"
@@ -8194,6 +8208,10 @@
         </ccTool>
       </item>
       <item path="k3dsdk/python/particle_python.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="k3dsdk/python/plane_python.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="k3dsdk/python/plane_python.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="k3dsdk/python/plugin_python.cpp" ex="false" tool="1" flavor2="4">
         <ccTool>
@@ -14373,6 +14391,11 @@
         <ccTool>
         </ccTool>
       </item>
+      <item path="tests/geometric_operations/geometric_operations.PointSubtraction.py"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="tests/platform/platform_floating_point.cpp"
             ex="false"
             tool="1"
@@ -14568,6 +14591,11 @@
             flavor2="0">
       </item>
       <item path="tests/unit_tests/sdk/stdx/functional_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/sdk/stdx/tuple_tests.cpp"
             ex="false"
             tool="1"
             flavor2="0">

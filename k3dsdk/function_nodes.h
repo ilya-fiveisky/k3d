@@ -24,9 +24,10 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/function_nodes/property.h>
 #include <k3dsdk/function_nodes/function_node.h>
 #include <k3dsdk/function_nodes/node_info.h>
+#include <k3dsdk/function_nodes/property.h>
 #include <k3dsdk/function_nodes/property_info.h>
+#include <k3dsdk/function_nodes/type_info.h>
 
 #endif // !K3DSDK_FUNCTION_NODE_H

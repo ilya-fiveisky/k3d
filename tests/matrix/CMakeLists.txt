@@ -1,3 +1,8 @@
+K3D_TEST(matrix.MatrixMemorization
+	K3D_PYTHON_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/MatrixMemorization.py
+	REQUIRES K3D_BUILD_CORE_MODULE
+	LABELS matrix MatrixMemorization)
+
 K3D_TEST(matrix.modifier.FrozenMatrix
 	K3D_PYTHON_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/modifier.FrozenMatrix.py
 	REQUIRES K3D_BUILD_CORE_MODULE
