@@ -140,7 +140,7 @@ public:
 
 	operator bool() const
 	{
-		return storage;
+		return storage != 0;
 	}
 
 	bool operator!() const
