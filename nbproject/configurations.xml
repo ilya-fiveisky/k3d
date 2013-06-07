@@ -2218,12 +2218,14 @@
           </df>
           <df name="sdk">
             <df name="data">
+              <in>container_fatal_errors_tests.cpp</in>
               <in>container_tests.cpp</in>
             </df>
             <df name="stdx">
               <in>functional_tests.cpp</in>
               <in>tuple_tests.cpp</in>
             </df>
+            <in>function_nodes_fatal_errors_tests.cpp</in>
             <in>function_nodes_tests.cpp</in>
             <in>memorization_node_tests.cpp</in>
           </df>
@@ -14594,7 +14596,17 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="tests/unit_tests/sdk/data/container_fatal_errors_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="tests/unit_tests/sdk/data/container_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/sdk/function_nodes_fatal_errors_tests.cpp"
             ex="false"
             tool="1"
             flavor2="0">
