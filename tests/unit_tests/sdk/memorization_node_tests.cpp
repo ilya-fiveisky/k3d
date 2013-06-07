@@ -38,19 +38,12 @@
 #include <k3dsdk/interface_list.h>
 #include <k3dsdk/iproperty.h>
 #include <k3dsdk/node.h>
-#include <k3dsdk/state_change_set.h>
 #include <k3dsdk/stdx/tuple/misc.h>
 #include <k3dsdk/uuid.h>
 #include <k3dsdk/vector3.h>
 #include <k3dsdk/vector4.h>
 
 #include <fixture.h>
-#include <mocks/idocument_mock.h>
-#include <mocks/iplugin_factory_mock.h>
-#include <mocks/istate_recorder_mock.h>
-#include <mocks/node_mock.h>
-#include <mocks/node_stub.h>
-#include <mocks/property_stub.h>
 
 using namespace std;
 using namespace stdx;
@@ -110,22 +103,22 @@ iwritable_property* get_writable_property_by_name(node& Node, const string& Name
 
 BOOST_FIXTURE_TEST_CASE( check_output_value, fixture )
 {
-    memorization_node_t matrixMemorization(plugin_factory(), doc_mock());
+    memorization_node_t memorization(plugin_factory(), doc_mock());
     
-    auto matrixInput = get_writable_property_by_name(matrixMemorization, "input");
+    auto inputProp = get_writable_property_by_name(memorization, "input");
     
     auto testMatrix = matrix4(
         vector4(1, 0, 0, 1), 
         vector4(0, 1, 0, 2), 
         vector4(0, 0, 1, 3), 
         vector4(0, 0, 0, 1));
-    matrixInput->property_set_value(testMatrix);
+    inputProp->property_set_value(testMatrix);
 
-    auto outputProp = get_property_by_name(matrixMemorization, "output");
+    auto outputProp = get_property_by_name(memorization, "output");
     
     BOOST_CHECK_EQUAL( any_cast<matrix4>(outputProp->property_internal_value()), identity3() );
     
-    auto eventProp = get_writable_property_by_name(matrixMemorization, "event");
+    auto eventProp = get_writable_property_by_name(memorization, "event");
     
     eventProp->property_set_value(true);
     

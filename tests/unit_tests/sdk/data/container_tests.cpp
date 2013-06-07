@@ -21,21 +21,29 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <csignal>
-
 #include <exception>
 
-struct access_violation : std::exception 
-{
-    const char* what() const noexcept {return "SIGSEGV";}
-};
+#include <boost/test/unit_test.hpp>
 
-void signal_handler(int signal)
-{
-    throw access_violation();
-}
+#include <turtle/mock.hpp>
 
-typedef void (*signal_handler_pointer)(int);
+#include <k3d-i18n-config.h>
+#include <k3dsdk/data.h>
+#include <k3dsdk/node.h>
 
-// For catching access violation in order to run all tests.
-signal_handler_pointer prev_handler = signal(SIGSEGV , signal_handler);
+#include <fixture.h>
+
+using namespace std;
+using namespace boost;
+using namespace sigc;
+using namespace k3d;
+using namespace k3d::data;
+using namespace k3d::tests;
+
+BOOST_AUTO_TEST_SUITE( data_container_suite )
+        
+typedef container_t<bool_t, immutable_name, change_signal, no_undo, local_storage, no_constraint, 
+        read_only_property, with_serialization> prop_t;
+
+BOOST_AUTO_TEST_SUITE_END() // data_container_suite
+

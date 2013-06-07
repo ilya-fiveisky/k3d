@@ -2162,6 +2162,9 @@
         <df name="geometric_operations">
           <in>geometric_operations.PointSubtraction.py</in>
         </df>
+        <df name="matrix">
+          <in>MatrixMemorization.py</in>
+        </df>
         <df name="platform">
           <in>platform_floating_point.cpp</in>
           <in>platform_normalized.cpp</in>
@@ -2214,11 +2217,15 @@
             </df>
           </df>
           <df name="sdk">
+            <df name="data">
+              <in>container_tests.cpp</in>
+            </df>
             <df name="stdx">
               <in>functional_tests.cpp</in>
               <in>tuple_tests.cpp</in>
             </df>
             <in>function_nodes_tests.cpp</in>
+            <in>memorization_node_tests.cpp</in>
           </df>
           <in>costring_tests.cpp</in>
           <in>fixture.h</in>
@@ -14396,6 +14403,8 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="tests/matrix/MatrixMemorization.py" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tests/platform/platform_floating_point.cpp"
             ex="false"
             tool="1"
@@ -14585,7 +14594,17 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="tests/unit_tests/sdk/data/container_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="tests/unit_tests/sdk/function_nodes_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/unit_tests/sdk/memorization_node_tests.cpp"
             ex="false"
             tool="1"
             flavor2="0">

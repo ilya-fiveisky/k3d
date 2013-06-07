@@ -35,19 +35,12 @@
 #include <k3dsdk/document.h>
 #include <k3dsdk/iproperty.h>
 #include <k3dsdk/node.h>
-#include <k3dsdk/state_change_set.h>
 #include <k3dsdk/stdx/tuple/misc.h>
 #include <k3dsdk/uuid.h>
 #include <k3dsdk/vector3.h>
 #include <k3dsdk/vector4.h>
 
 #include <fixture.h>
-#include <mocks/idocument_mock.h>
-#include <mocks/iplugin_factory_mock.h>
-#include <mocks/istate_recorder_mock.h>
-#include <mocks/node_mock.h>
-#include <mocks/node_stub.h>
-#include <mocks/property_stub.h>
 
 using namespace std;
 using namespace stdx;
@@ -132,21 +125,6 @@ typedef node_test<prop_t> node_test_t;
 BOOST_FIXTURE_TEST_CASE( construct_node_test_node, fixture )
 {
     BOOST_CHECK_NO_THROW( node_test_t(plugin_factory(), doc_mock()) );
-}
-
-template<typename... Args> struct segfault_node : node {
-    segfault_node(iplugin_factory& Factory, idocument& Document) : 
-        node(Factory, Document),
-		m_args(Args(*this)...) {}
-    
-    tuple<Args...> m_args;
-};
-
-typedef segfault_node<prop_t> segfault_node_t;
-
-BOOST_FIXTURE_TEST_CASE( construct_segfault_node, fixture )
-{
-    BOOST_CHECK_NO_THROW( segfault_node_t(plugin_factory(), doc_mock()) );
 }
 
 BOOST_AUTO_TEST_SUITE_END() // initialization_suite

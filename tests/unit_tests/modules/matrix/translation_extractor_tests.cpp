@@ -32,15 +32,10 @@
 
 #include <k3dsdk/algebra.h>
 #include <k3dsdk/iproperty.h>
-#include <k3dsdk/state_change_set.h>
 #include <k3dsdk/vector3.h>
 #include <k3dsdk/vector4.h>
 
 #include <fixture.h>
-#include <mocks/idocument_mock.h>
-#include <mocks/istate_recorder_mock.h>
-
-#include "tests/unit_tests/fixture.h"
 
 using namespace std;
 using namespace boost;
