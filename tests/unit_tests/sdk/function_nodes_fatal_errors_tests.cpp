@@ -65,6 +65,12 @@ typedef segfault_node<prop_t> segfault_node_t;
 
 BOOST_FIXTURE_TEST_CASE( construct_segfault_node, fixture )
 {
+    // It fails here because of copy ctor in the m_args initialization:
+    // temporary property is registered in its ctor tnen deleted but not unregistered.
+    // Hence we get access violation inside dynamic_cast in property_collection destructor.
+    // It can be seen in gdb.
+    // Though I can't undestand why it doesn't crash before in the temporary property destructor 
+    // where we have uninitialized m_deleted_signal.
     BOOST_CHECK_NO_THROW( segfault_node_t(plugin_factory(), doc_mock()) );
 }
 
