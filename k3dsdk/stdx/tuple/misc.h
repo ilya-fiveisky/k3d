@@ -1,5 +1,5 @@
-#ifndef STDX_MISC_H
-#define STDX_MISC_H
+#ifndef K3DSDK_STDX_TUPLE_MISC_H
+#define K3DSDK_STDX_TUPLE_MISC_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -35,4 +35,4 @@ template<typename T, typename U> U& variadic_id(U& x){return x;}
 
 } // namespace stdx
 
-#endif // !STDX_MISC_H
+#endif // !K3DSDK_STDX_TUPLE_MISC_H
