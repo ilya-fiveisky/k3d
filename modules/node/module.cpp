@@ -22,31 +22,41 @@
 */
 
 #include <functional>
+#include <string>
 
-#include <k3dsdk/function_nodes.h>
-#include <k3dsdk/module.h>
 #include <k3dsdk/inode.h>
+#include <k3dsdk/module.h>
+#include <k3dsdk/nodes/functional/single.h>
+#include <k3dsdk/nodes/property.h>
 #include <k3dsdk/uuid.h>
 
 using namespace std;
 using namespace k3d;
-using namespace k3d::function_nodes;
+using namespace k3d::nodes;
+using namespace k3d::nodes::functional;
 
 namespace module
 { 
 namespace node
 {
     
-category_t category("Node");
+string category_node = "Node";
 
 namespace equality
 {
-node_info the_node_info(name_t("NodeEquality"), description_t("Compares two nodes by reference."), 
-        uuid(0xec0c8694, 0xf1a0440c, 0xbf5ad042, 0x8fd2eee6), category);
-property_info<inode*> input1_info(name_t("a"), label_t("A"), description_t("A"));
-property_info<inode*> input2_info(name_t("b"), label_t("B"), description_t("B"));
-property_info<bool_t> output_info(name_t("a_equals_b"), label_t("A = B"), description_t("A = B"));
-typedef function_node<the_node_info, equal_to<inode*>, output_property<bool_t, output_info>, 
+struct the_node_info { string name = "NodeEquality"; 
+    string description = "Compares two nodes by reference.";
+    uuid id = uuid(0xec0c8694, 0xf1a0440c, 0xbf5ad042, 0x8fd2eee6); string category = category_node;};
+
+struct input1_info { string name = "a"; string label = "A"; string description = "A"; 
+    inode* default_value = nullptr;};
+struct input2_info { string name = "b"; string label = "B"; string description = "B"; 
+    inode* default_value = nullptr;};
+
+struct output_info { string name = "a_equals_b"; string label = "A = B"; string description = "A = B"; 
+    bool_t default_value = false;};
+
+typedef single<the_node_info, equal_to<inode*>, output_property<bool_t, output_info>, 
         input_property<inode*, input1_info>, input_property<inode*, input2_info>> type;
 }
 

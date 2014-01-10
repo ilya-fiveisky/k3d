@@ -1,5 +1,5 @@
-#ifndef K3DSDK_FUNCTION_NODE_H
-#define K3DSDK_FUNCTION_NODE_H
+#ifndef K3DSDK_NODES_PROPERTYINFO_H
+#define K3DSDK_NODES_PROPERTYINFO_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -24,10 +24,33 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/function_nodes/function_node.h>
-#include <k3dsdk/function_nodes/node_info.h>
-#include <k3dsdk/function_nodes/property.h>
-#include <k3dsdk/function_nodes/property_info.h>
-#include <k3dsdk/function_nodes/type_info.h>
+#include <string>
 
-#endif // !K3DSDK_FUNCTION_NODE_H
+#include <boost/concept/usage.hpp>
+
+#include <k3dsdk/nodes/TypeInfo.h>
+
+namespace k3d
+{
+namespace nodes
+{
+
+/// PropertyInfo concept
+template<class X, typename V> struct PropertyInfo : TypeInfo<X, V>
+{
+    BOOST_CONCEPT_USAGE(PropertyInfo)
+    {
+        n = x.name.c_str();
+        n = x.label.c_str();
+        n = x.description.c_str();
+    }
+    
+private:
+    X x;
+    const char* n;
+};
+
+} // namespace nodes
+} // namespace k3d
+
+#endif // !K3DSDK_NODES_PROPERTYINFO_H

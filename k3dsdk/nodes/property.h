@@ -1,5 +1,5 @@
-#ifndef K3DSDK_FUNCTION_NODES_PROPERTY_H
-#define K3DSDK_FUNCTION_NODES_PROPERTY_H
+#ifndef K3DSDK_NODES_PROPERTY_H
+#define K3DSDK_NODES_PROPERTY_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -26,20 +26,21 @@
 
 #include <type_traits>
 
+#include <boost/concept/assert.hpp>
 #include <boost/mpl/logical.hpp>
+#include <boost/utility.hpp>
 
 #include <k3d-i18n-config.h>
 #include <k3dsdk/data.h>
-#include <k3dsdk/function_nodes/property_info.h>
 #include <k3dsdk/inode.h>
 #include <k3dsdk/node.h>
+#include <k3dsdk/nodes/PropertyInfo.h>
 #include <k3dsdk/pointer_demand_storage.h>
 #include <k3dsdk/value_demand_storage.h>
 
 namespace k3d
 {
-
-namespace function_nodes
+namespace nodes
 {
 
 namespace detail
@@ -76,14 +77,22 @@ namespace detail
     
     template<typename value_t, typename tag> using property_t = typename property_<value_t, tag>::type;
 
-    template<typename value_t, property_info<value_t>& Info, typename tag> class property : 
+    template<typename value_t, class property_info_t, typename tag> class property :
+        private boost::base_from_member<property_info_t>,
         public property_t<value_t, tag>
     {
+        BOOST_CONCEPT_ASSERT((PropertyInfo<property_info_t, value_t>));
+        
+        typedef boost::base_from_member<property_info_t>  pbase;
         typedef property_t<value_t, tag> base;
     public:
         template<typename owner_t> property(owner_t& Owner) :
-            base(init_owner(Owner) + init_name(Info.name()) + init_label(_(Info.label())) 
-                + init_description(_(Info.description())) + init_value(Info.default_value()))
+            pbase(property_info_t()),
+            base(init_owner(Owner)
+                + init_name(this->pbase::member.name.c_str())
+                + init_label(_(this->pbase::member.label.c_str()))
+                + init_description(_(this->pbase::member.description.c_str()))
+                + init_value(this->pbase::member.default_value))
         {
         }
     };
@@ -92,17 +101,16 @@ namespace detail
 
 template<typename value_t> using input_property_t = detail::property_t<value_t, detail::in_tag>;
 
-template<typename value_t, property_info<value_t>& Info> using input_property = 
-    detail::property<value_t, Info, detail::in_tag>;
+template<typename value_t, class property_info_t> using input_property = 
+    detail::property<value_t, property_info_t, detail::in_tag>;
 
 template<typename value_t> using output_property_t = detail::property_t<value_t, detail::out_tag>;
 
-template<typename value_t, property_info<value_t>& Info> using output_property =
-    detail::property<value_t, Info, detail::out_tag>;
+template<typename value_t, class property_info_t> using output_property =
+    detail::property<value_t, property_info_t, detail::out_tag>;
 
-} //namespace function_node
-
+} // namespace nodes
 } // namespace k3d
 
-#endif // !K3DSDK_FUNCTION_NODES_PROPERTY_H
+#endif // !K3DSDK_NODES_PROPERTY_H
 

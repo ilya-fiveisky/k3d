@@ -1,5 +1,5 @@
-#ifndef K3DSDK_FUNCTION_NODES_MULTI_FUNCTION_NODE_H
-#define K3DSDK_FUNCTION_NODES_MULTI_FUNCTION_NODE_H
+#ifndef K3DSDK_NODES_FUNCTIONAL_MULTI_H
+#define K3DSDK_NODES_FUNCTIONAL_MULTI_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -28,20 +28,23 @@
 #include <tuple>
 #include <type_traits>
 
+#include <boost/concept/assert.hpp>
+
 #include <k3d-i18n-config.h>
 #include <k3dsdk/data.h>
 #include <k3dsdk/document_plugin_factory.h>
-#include <k3dsdk/function_nodes/node_info.h>
-#include <k3dsdk/function_nodes/property.h>
-#include <k3dsdk/function_nodes/property_info.h>
 #include <k3dsdk/node.h>
+#include <k3dsdk/nodes/NodeInfo.h>
+#include <k3dsdk/nodes/property.h>
 #include <k3dsdk/stdx/functional.h>
 #include <k3dsdk/stdx/tuple.h>
 #include <k3dsdk/uuid.h>
 
 namespace k3d
 {
-namespace function_nodes
+namespace nodes
+{
+namespace functional
 {
 
 template<class function_t, class output_property_t> class output_pair
@@ -78,17 +81,19 @@ private:
     params_type m_params;
 };
 
-/// Multi-function node template.
+/// Functional node template with multiple outputs (multiple functions).
 template<
-        node_info& NodeInfo,
+        class node_info_t,
         class outputs_t,
         class inputs_t> 
-class multi_function_node :
-	public node
+class multi : public node
 {
+    BOOST_CONCEPT_ASSERT((NodeInfo<node_info_t>));
+    
     static_assert(std::tuple_size<typename outputs_t::params_type>::value > 0, 
             "Number of outputs should be > 0.");
-    typedef multi_function_node<NodeInfo, outputs_t, inputs_t> this_t;
+    
+    typedef multi<node_info_t, outputs_t, inputs_t> this_t;
 	typedef node base;
 
     class connect_changed_signal
@@ -153,7 +158,7 @@ class multi_function_node :
     };
     
 public:
-	multi_function_node(iplugin_factory& Factory, idocument& Document) :
+	multi(iplugin_factory& Factory, idocument& Document) :
 		base(Factory, Document),
 		m_inputs(*this),
         m_outputs(*this)
@@ -167,11 +172,12 @@ public:
     
 	static iplugin_factory& get_factory()
 	{
-		static document_plugin_factory<multi_function_node > factory(
-			NodeInfo.id(),
-			NodeInfo.name(),
-			_(NodeInfo.description()),
-			NodeInfo.category(),
+        static node_info_t ni;
+		static document_plugin_factory<multi> factory(
+			ni.id,
+			ni.name.c_str(),
+			_(ni.description.c_str()),
+			ni.category.c_str(),
 			iplugin_factory::EXPERIMENTAL);
 
 		return factory;
@@ -182,9 +188,9 @@ protected:
     outputs_t m_outputs;
 };
 
-} //namespace function_nodes
-
+} // namespace functional
+} // namespace nodes
 } // namespace k3d
 
-#endif // !K3DSDK_FUNCTION_NODES_MULTI_FUNCTION_NODE_H
+#endif // !K3DSDK_NODES_FUNCTIONAL_MULTI_H
 

@@ -23,37 +23,32 @@
 
 #include <k3d-i18n-config.h>
 #include <k3dsdk/document_plugin_factory.h>
-#include <k3dsdk/function_nodes.h>
 #include <k3dsdk/hints.h>
 #include <k3dsdk/imatrix_sink.h>
 #include <k3dsdk/imatrix_source.h>
 #include <k3dsdk/interface_list.h>
-#include <k3dsdk/memorization_node.h>
 #include <k3dsdk/node.h>
+#include <k3dsdk/nodes/memorization.h>
 #include <k3dsdk/value_demand_storage.h>
 
 using namespace std;
 using namespace k3d;
-using namespace k3d::function_nodes;
+using namespace k3d::nodes;
 
 namespace module
 {
-
 namespace matrix
 {
 
 /////////////////////////////////////////////////////////////////////////////
 // memorization
 
-auto the_node_info = node_info(
-                                name_t("MatrixMemorization"), 
-                                description_t(""), 
-                                uuid(0xc071766b, 0x79a6406f, 0xa1041714, 0xc5766d83), 
-                                category_t("Matrix"));
+struct the_node_info { string name = "MatrixMemorization"; string description = "Memorizes input matrix";
+    uuid id = uuid(0xc071766b, 0x79a6406f, 0xa1041714, 0xc5766d83); string category = "Matrix";};
 
-auto the_type_info = k3d::function_nodes::type_info<matrix4>(identity3());
+struct the_type_info { matrix4 default_value = identity3();};
 
-typedef memorization_node<the_node_info, matrix4, the_type_info, interface_list<imatrix_source,
+typedef memorization<the_node_info, matrix4, the_type_info, interface_list<imatrix_source,
         interface_list<imatrix_sink>>> memorization_base;
 
 class memorization :
@@ -88,7 +83,6 @@ iplugin_factory& memorization_factory()
 }
 
 } // namespace matrix
-
 } // namespace module
 
 

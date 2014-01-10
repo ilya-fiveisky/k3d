@@ -1,8 +1,8 @@
-#ifndef K3DSDK_FUNCTION_NODES_TYPE_INFO_H
-#define K3DSDK_FUNCTION_NODES_TYPE_INFO_H
+#ifndef K3D_TESTS_UNIT_TESTS_UTILS_H
+#define	K3D_TESTS_UNIT_TESTS_UTILS_H
 
 // K-3D
-// Copyright (c) 1995-2009, Timothy M. Shead
+// Copyright (c) 1995-2008, Timothy M. Shead
 //
 // Contact: tshead@k-3d.com
 //
@@ -24,28 +24,23 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/data.h>
+#include <string>
+
+#include <k3dsdk/iproperty.h>
+#include <k3dsdk/iwritable_property.h>
+#include <k3dsdk/node.h>
 
 namespace k3d
 {
-
-namespace function_nodes
+namespace tests
 {
-    
-template<typename value_t> struct type_info
-{
-    type_info(const value_t& DefaultValue): m_default_value(DefaultValue) {}
-    
-    virtual ~type_info(){}
-    
-    value_t default_value() const {return m_default_value;}
-    
-private:
-    value_t m_default_value;
-};
 
-} //namespace function_node
+iproperty* get_property_by_name(node& Node, const std::string& Name);
 
+iwritable_property* get_writable_property_by_name(node& Node, const std::string& Name);
+
+} // namespace tests
 } // namespace k3d
 
-#endif // !K3DSDK_FUNCTION_NODES_TYPE_INFO_H
+#endif // !K3D_TESTS_UNIT_TESTS_UTILS_H
+

@@ -1,5 +1,5 @@
-#ifndef K3DSDK_MEMORIZATION_NODE_H
-#define K3DSDK_MEMORIZATION_NODE_H
+#ifndef K3DSDK_NODES_MEMORIZATION_H
+#define K3DSDK_NODES_MEMORIZATION_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -24,62 +24,75 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
+#include <type_traits>
+
+#include <boost/concept/assert.hpp>
+#include <boost/utility.hpp>
+
 #include <k3d-i18n-config.h>
 #include <k3dsdk/document_plugin_factory.h>
-#include <k3dsdk/function_nodes.h>
 #include <k3dsdk/hints.h>
 #include <k3dsdk/interface_list.h>
 #include <k3dsdk/node.h>
+#include <k3dsdk/nodes/NodeInfo.h>
+#include <k3dsdk/nodes/property.h>
+#include <k3dsdk/nodes/TypeInfo.h>
 
 namespace k3d
 {
 
 /////////////////////////////////////////////////////////////////////////////
-// memorization_node
+// memorization
 
 template<
-    function_nodes::node_info& Info, 
+    class node_info_t, 
     typename value_t,
-    function_nodes::type_info<value_t>& TypeInfo,
+    class type_info_t,
     class interface_list = null_interface>
-class memorization_node :
+class memorization :
+    private boost::base_from_member<type_info_t>,
 	public node
 {
+    BOOST_CONCEPT_ASSERT((nodes::NodeInfo<node_info_t>));
+    BOOST_CONCEPT_ASSERT((nodes::TypeInfo<type_info_t, value_t>));
+    
+    typedef boost::base_from_member<type_info_t>  tbase;
 	typedef node base;
 
 public:
-	memorization_node(iplugin_factory& Factory, idocument& Document) :
+	memorization(iplugin_factory& Factory, idocument& Document) :
 		base(Factory, Document),
-        m_input_value(TypeInfo.default_value()),
+        m_input_value(this->tbase::member.default_value),
 		m_input(init_owner(*this) + init_name("input") + init_label(_("Input")) + 
-                init_description(_("Input")) + init_value(TypeInfo.default_value())),
+                init_description(_("Input")) + init_value(this->tbase::member.default_value)),
 		m_event(init_owner(*this) + init_name("event") + init_label(_("Event")) + 
                 init_description(_("Event on which to memorize")) + init_value(false)),
 		m_output(init_owner(*this) + init_name("output") + init_label(_("Output")) + 
-                init_description(_("Output (read only)")) + init_value(TypeInfo.default_value()))
+                init_description(_("Output (read only)")) + init_value(this->tbase::member.default_value))
 	{
-		m_event.changed_signal().connect(sigc::mem_fun(*this, &memorization_node::on_event));
-		m_output.set_update_slot(sigc::mem_fun(*this, &memorization_node::execute));
+		m_event.changed_signal().connect(sigc::mem_fun(*this, &memorization::on_event));
+		m_output.set_update_slot(sigc::mem_fun(*this, &memorization::execute));
 	}
 
 	static iplugin_factory& get_factory()
 	{
-		static document_plugin_factory<memorization_node, interface_list> factory(
-				Info.id(),
-				Info.name(),
-				_("Memorizes input value on event"),
-				Info.category(),
-				iplugin_factory::EXPERIMENTAL);
+        static node_info_t ni;
+		static document_plugin_factory<memorization, interface_list> factory(
+            ni.id,
+            ni.name.c_str(),
+            _(ni.description.c_str()),
+            ni.category.c_str(),
+            iplugin_factory::EXPERIMENTAL);
 
 		return factory;
 	}
 
 protected:
-	function_nodes::input_property_t<value_t> m_input;
-	function_nodes::output_property_t<value_t> m_output;
+	nodes::input_property_t<value_t> m_input;
+	nodes::output_property_t<value_t> m_output;
     
 private:
-	function_nodes::input_property_t<bool_t> m_event;
+	nodes::input_property_t<bool_t> m_event;
     value_t m_input_value;
 
 	/// Called whenever the output matrix has been modified and needs to be updated.
@@ -101,4 +114,4 @@ private:
 
 } // namespace k3d
 
-#endif // !K3DSDK_MEMORIZATION_NODE_H
+#endif // !K3DSDK_NODES_MEMORIZATION_H

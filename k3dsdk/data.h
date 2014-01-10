@@ -20,6 +20,16 @@
 // License along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+#include <cassert>
+
+#include <string>
+#include <typeinfo>
+
+#include <boost/lexical_cast.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits.hpp>
+#include <boost/version.hpp>
+
 #include <k3dsdk/idocument.h>
 #include <k3dsdk/ienumeration_property.h>
 #include <k3dsdk/ihint.h>
@@ -45,15 +55,6 @@
 #include <k3dsdk/result.h>
 #include <k3dsdk/state_change_set.h>
 #include <k3dsdk/xml.h>
-
-#include <boost/lexical_cast.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/type_traits.hpp>
-#include <boost/version.hpp>
-
-#include <cassert>
-#include <string>
-#include <typeinfo>
 
 namespace k3d
 {

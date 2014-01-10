@@ -1,5 +1,5 @@
-#ifndef MODULE_MATRIX_EXTRACT_TRANSLATION_H
-#define	MODULE_MATRIX_EXTRACT_TRANSLATION_H
+#ifndef MODULES_MATRIX_TRANSLATION_EXTRACTOR_H
+#define	MODULES_MATRIX_TRANSLATION_EXTRACTOR_H
 
 // K-3D
 // Copyright (c) 1995-2008, Timothy M. Shead
@@ -25,21 +25,21 @@
 */
 
 #include <k3dsdk/document_plugin_factory.h>
-#include <k3dsdk/function_nodes/property.h>
 #include <k3dsdk/imatrix_sink.h>
+#include <k3dsdk/nodes/property.h>
 #include <k3dsdk/single_source.h>
 #include <k3dsdk/vector3.h>
 
 namespace module
 {
-
 namespace matrix
 {
 
 using namespace k3d;
+using namespace k3d::nodes;
     
 /////////////////////////////////////////////////////////////////////////////
-// extract_translation
+// translation_extractor
 
 class translation_extractor :
     public single_source<vector3>,
@@ -66,14 +66,13 @@ public:
    }
 
 private:
-	function_nodes::input_property_t<matrix4> m_input;
+	input_property_t<matrix4> m_input;
     
     void on_update_value(vector3& Output);
 };
 
 } // namespace matrix
-
 } // namespace module
 
-#endif // !MODULE_MATRIX_EXTRACT_TRANSLATION_H
+#endif // !MODULES_MATRIX_TRANSLATION_EXTRACTOR_H
 

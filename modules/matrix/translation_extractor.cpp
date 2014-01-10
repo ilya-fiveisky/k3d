@@ -26,28 +26,28 @@
 #include <k3d-i18n-config.h>
 #include <k3dsdk/algebra.h>
 #include <k3dsdk/document_plugin_factory.h>
-#include <k3dsdk/function_nodes/property.h>
 #include <k3dsdk/imatrix_sink.h>
+#include <k3dsdk/nodes/property.h>
 #include <k3dsdk/single_source.h>
 #include <k3dsdk/vector3.h>
 
 using namespace std;
 using namespace k3d;
 using namespace k3d::data;
-using namespace k3d::function_nodes;
+using namespace k3d::nodes;
 
 namespace module
 {
-
 namespace matrix
 {
 
 /////////////////////////////////////////////////////////////////////////////
-// extract_translation
+// translation_extractor
 
 translation_extractor::translation_extractor(iplugin_factory& Factory, idocument& Document) :
 		base(Factory, Document, _("Translation vector from the input transform matrix.")),
-        m_input(init_owner(*this) + init_name("input_matrix") + init_label(_("Input matrix")) + init_description(_("Input matrix")) + init_value(identity3()))
+        m_input(init_owner(*this) + init_name("input_matrix") + init_label(_("Input matrix")) 
+            + init_description(_("Input matrix")) + init_value(identity3()))
 {
     m_input.changed_signal().connect(hint::converter<
         hint::convert<hint::any, hint::none> >(make_update_value_slot()));
@@ -64,7 +64,6 @@ void translation_extractor::on_update_value(vector3& Output)
 }
 
 } // namespace matrix
-
 } // namespace module
 
 

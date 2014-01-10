@@ -1,5 +1,5 @@
-#ifndef K3DSDK_FUNCTION_NODES_PROPERTY_INFO_H
-#define K3DSDK_FUNCTION_NODES_PROPERTY_INFO_H
+#ifndef K3DSDK_NODES_NODEINFO_H
+#define K3DSDK_NODES_NODEINFO_H
 
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
@@ -24,36 +24,35 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/data.h>
+#include <string>
+
+#include <boost/concept/usage.hpp>
+
+#include <k3dsdk/uuid.h>
 
 namespace k3d
 {
+namespace nodes
+{
 
-namespace function_nodes
+/// NodeInfo concept
+template<class X> struct NodeInfo
 {
-    
-template<typename value_t> struct property_info
-{
-    property_info(const name_t& Name, const label_t& Label, const description_t& Description, const value_t& DefaultValue = value_t()):
-    m_name(Name.name()), m_label(Label.label()), m_description(Description.description()), m_default_value(DefaultValue) {}
-    
-    virtual ~property_info(){}
-    
-    const char* name() const {return m_name;}
-    const char* label() const {return m_label;}
-    const char* description() const {return m_description;}
-    value_t default_value() const {return m_default_value;}
+    BOOST_CONCEPT_USAGE(NodeInfo)
+    {
+        n = x.name.c_str();
+        n = x.description.c_str();
+        n = x.category.c_str();
+        i = x.id;
+    }
     
 private:
-    const char* m_name;
-    const char* m_label;
-    const char* m_description;
-    value_t m_default_value;
+    X x;
+    const char* n;
+    uuid i;
 };
 
-} //namespace function_node
-
+} // namespace nodes
 } // namespace k3d
 
-#endif // !K3DSDK_FUNCTION_NODES_PROPERTY_INFO_H
-
+#endif // !K3DSDK_NODES_NODEINFO_H

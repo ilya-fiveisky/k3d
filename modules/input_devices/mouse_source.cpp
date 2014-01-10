@@ -21,27 +21,26 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3d-i18n-config.h>
-#include <k3dsdk/document_plugin_factory.h>
-#include <k3dsdk/node.h>
-#include <k3dsdk/value_demand_storage.h>
-#include <k3dsdk/point2.h>
-#include <k3dsdk/imouse_observer.h>
-#include <k3dsdk/function_nodes.h>
+#include <functional>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include <functional>
+#include <k3d-i18n-config.h>
+#include <k3dsdk/document_plugin_factory.h>
+#include <k3dsdk/imouse_observer.h>
+#include <k3dsdk/node.h>
+#include <k3dsdk/nodes/property.h>
+#include <k3dsdk/point2.h>
+#include <k3dsdk/value_demand_storage.h>
 
-using namespace k3d;
-using namespace k3d::function_nodes;
+using namespace std;
 using namespace boost;
 using namespace boost::posix_time;
-using namespace std;
+using namespace k3d;
+using namespace k3d::nodes;
 
 namespace module
 {
-
 namespace input_devices
 {
 
@@ -207,7 +206,6 @@ iplugin_factory& mouse_source_factory()
 }
 
 } //namespace input_devices
-
 } // namespace module
 
 

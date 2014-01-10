@@ -30,7 +30,6 @@ namespace stdx {
 
 /// Used to pass U instance in variadic expression submitting unpacked parameters into T parameter.
 /// Necessary for initializing tuple of types with shared owner and without copy constructor.
-/// See m_inputs initialization in the k3d::function_nodes::function_node as example.
 template<typename T, typename U> U& variadic_id(U& x){return x;}
 
 } // namespace stdx

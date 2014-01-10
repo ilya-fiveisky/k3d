@@ -21,9 +21,11 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/function_nodes.h>
+#include <k3dsdk/nodes/functional/single.h>
+#include <k3dsdk/nodes/property.h>
 
 #include <exception>
+#include <string>
 #include <tuple>
 
 #include <boost/test/unit_test.hpp>
@@ -48,29 +50,46 @@ using namespace boost;
 using namespace sigc;
 using namespace k3d;
 using namespace k3d::tests;
-using namespace k3d::function_nodes;
+using namespace k3d::nodes;
+using namespace k3d::nodes::functional;
 
-BOOST_AUTO_TEST_SUITE( function_nodes_suite )
+BOOST_AUTO_TEST_SUITE( functional_nodes_suite )
         
-category_t category("Category1");
+struct the_node_info { string name = "NodeInfo"; string description = "Node description";
+        uuid id = uuid(0x835bb1af, 0x95a04399, 0x856afa74, 0x92a2bda4); string category = "Category1";};
 
-node_info the_node_info(name_t("NodeInfo"), description_t("Node description"), 
-        uuid(0x835bb1af, 0x95a04399, 0x856afa74, 0x92a2bda4), category);
-property_info<vector3> input1_info(name_t("a"), label_t("A"), description_t("A"));
-property_info<vector3> input2_info(name_t("b"), label_t("B"), description_t("B"));
-property_info<vector3> output_info(name_t("output"), label_t("Output"), description_t("Output"));
+struct input1_info { string name = "a"; string label = "A"; string description = "A"; vector3 default_value = vector3();};
+struct input2_info { string name = "b"; string label = "B"; string description = "B"; vector3 default_value = vector3();};
 
-typedef function_node<the_node_info, std::minus<vector3>, output_property<vector3, output_info>, 
+struct output_info { string name = "output"; string label = "Output"; string description = "Output"; vector3 default_value = vector3();};
+
+typedef single<the_node_info, std::minus<vector3>, output_property<vector3, output_info>, 
         input_property<vector3, input1_info>, input_property<vector3, input2_info>> binary_node_t;
 
-typedef function_node<the_node_info, std::negate<vector3>, output_property<vector3, output_info>, 
+typedef single<the_node_info, std::negate<vector3>, output_property<vector3, output_info>, 
         input_property<vector3, input1_info>> negate_node_t;
 typedef negate_node_t unary_node_t;
+
+
+struct int_input_info { string name = "int"; string label = "Int"; string description = "Int input"; 
+    int default_value = 12345;};
+struct double_input_info { string name = "double"; string label = "Double"; 
+    string description = "Double input"; double default_value = 1.2345;};
+
+struct string_output_info { string name = "string"; string label = "String"; 
+    string description = "String Output"; string default_value = "";};
+
+struct str_concat { string operator()(const int& I, const double& D) const
+    {return to_string(I) + to_string(D);} };
+    
+typedef single<the_node_info, str_concat, output_property<string, string_output_info>, 
+        input_property<int, int_input_info>, input_property<double, double_input_info>> hetero_node_t;
+
 
 struct constant { 
     vector3 operator()() const {return vector3();}
 };
-typedef function_node<the_node_info, constant, output_property<vector3, output_info>> constant_node_t;
+typedef single<the_node_info, constant, output_property<vector3, output_info>> constant_node_t;
 
 BOOST_AUTO_TEST_SUITE( initialization_suite )
 
@@ -147,6 +166,38 @@ BOOST_FIXTURE_TEST_CASE( negate_node, fixture )
             -get<0>(negateNode.inputs()).pipeline_value() );
 }
 
+BOOST_FIXTURE_TEST_CASE( check_property_names, fixture )
+{
+    binary_node_t binaryNode(plugin_factory(), doc_mock());
+    BOOST_CHECK_EQUAL( binaryNode.output_property().property_name(), "output" );
+    BOOST_CHECK_EQUAL( get<0>(binaryNode.inputs()).property_name(), "a" );
+    BOOST_CHECK_EQUAL( get<1>(binaryNode.inputs()).property_name(), "b" );
+}
+
+BOOST_FIXTURE_TEST_CASE( check_hetero_node_property_names, fixture )
+{
+    hetero_node_t heteroNode(plugin_factory(), doc_mock());
+    BOOST_CHECK_EQUAL( heteroNode.output_property().property_name(), "string" );
+    BOOST_CHECK_EQUAL( get<0>(heteroNode.inputs()).property_name(), "int" );
+    BOOST_CHECK_EQUAL( get<1>(heteroNode.inputs()).property_name(), "double" );
+}
+
+BOOST_FIXTURE_TEST_CASE( check_hetero_node_property_values, fixture )
+{
+    hetero_node_t heteroNode(plugin_factory(), doc_mock());
+    BOOST_CHECK_EQUAL( heteroNode.output_property().pipeline_value(), "123451.234500" );
+    BOOST_CHECK_EQUAL( get<0>(heteroNode.inputs()).pipeline_value(), 12345 );
+    BOOST_CHECK_EQUAL( get<1>(heteroNode.inputs()).pipeline_value(), 1.2345 );
+}
+
+BOOST_FIXTURE_TEST_CASE( check_hetero_node_property_types, fixture )
+{
+    hetero_node_t heteroNode(plugin_factory(), doc_mock());
+    BOOST_CHECK_EQUAL( heteroNode.output_property().property_type().name(), typeid(string).name() );
+    BOOST_CHECK_EQUAL( get<0>(heteroNode.inputs()).property_type().name(), typeid(int).name() );
+    BOOST_CHECK_EQUAL( get<1>(heteroNode.inputs()).property_type().name(), typeid(double).name() );
+}
+
 BOOST_AUTO_TEST_SUITE_END() // properties_usage_suite
         
-BOOST_AUTO_TEST_SUITE_END() // function_nodes_suite
+BOOST_AUTO_TEST_SUITE_END() // functional_nodes_suite

@@ -22,11 +22,13 @@
 */
 
 #include <functional>
+#include <string>
 
-#include <k3dsdk/function_nodes.h>
 #include <k3dsdk/geometric_operations.h>
 #include <k3dsdk/line3.h>
 #include <k3dsdk/module.h>
+#include <k3dsdk/nodes/functional/single.h>
+#include <k3dsdk/nodes/property.h>
 #include <k3dsdk/plane.h>
 #include <k3dsdk/point3.h>
 #include <k3dsdk/uuid.h>
@@ -35,81 +37,89 @@
 
 using namespace std;
 using namespace k3d;
-using namespace k3d::function_nodes;
+using namespace k3d::nodes;
+using namespace k3d::nodes::functional;
 
 namespace module
 { 
 namespace geometric_operations
 {
     
-category_t category("GeometricOperation");
+string category_geom = "GeometricOperation";
 
 namespace vector_subtraction
 {
-auto the_node_info = node_info(name_t("VectorSubtraction"), 
-        description_t("Subtracts two given vectors"), 
-        uuid(0x835bb1af, 0x95a04399, 0x856afa74, 0x92a2bda4), category);
+struct the_node_info { string name = "VectorSubtraction"; 
+    string description = "Subtracts two given vectors";
+    uuid id = uuid(0x835bb1af, 0x95a04399, 0x856afa74, 0x92a2bda4); string category = category_geom;};
 
-auto input1_info = property_info<vector3>(name_t("a"), label_t("A"), description_t("A"));
-auto input2_info = property_info<vector3>(name_t("b"), label_t("B"), description_t("B"));
+struct input1_info { string name = "a"; string label = "A"; string description = "A"; 
+    vector3 default_value = vector3();};
+struct input2_info { string name = "b"; string label = "B"; string description = "B"; 
+    vector3 default_value = vector3();};
 
-auto output_info = property_info<vector3>(name_t("a_minus_b"), label_t("A - B"), 
-        description_t("A - B"));
+struct output_info { string name = "a_minus_b"; string label = "A - B"; string description = "A - B"; 
+    vector3 default_value = vector3();};
 
-typedef function_node<the_node_info, minus<vector3>, output_property<vector3, output_info>, 
+typedef single<the_node_info, minus<vector3>, output_property<vector3, output_info>, 
         input_property<vector3, input1_info>, input_property<vector3, input2_info>> type;
 }
 
 namespace point_subtraction
 {
-auto the_node_info = node_info(name_t("PointSubtraction"), 
-        description_t("Subtracts two given points"), 
-        uuid(0xa1075e01, 0x157a4e44, 0x9ecbc310, 0xf5895647), category);
+struct the_node_info { string name = "PointSubtraction"; 
+    string description = "Subtracts two given points";
+    uuid id = uuid(0xa1075e01, 0x157a4e44, 0x9ecbc310, 0xf5895647); string category = category_geom;};
 
-auto input1_info = property_info<point3>(name_t("a"), label_t("A"), description_t("A"));
-auto input2_info = property_info<point3>(name_t("b"), label_t("B"), description_t("B"));
+struct input1_info { string name = "a"; string label = "A"; string description = "A"; 
+    point3 default_value = point3();};
+struct input2_info { string name = "b"; string label = "B"; string description = "B"; 
+    point3 default_value = point3();};
 
-auto output_info = property_info<vector3>(name_t("a_minus_b"), label_t("A - B"), 
-        description_t("A - B"));
+struct output_info { string name = "a_minus_b"; string label = "A - B"; string description = "A - B"; 
+    vector3 default_value = vector3();};
 
 struct subtract_points { vector3 operator()(const point3& A, const point3& B) const
     {return A - B;} };
     
-typedef function_node<the_node_info, subtract_points, output_property<vector3, output_info>, 
+typedef single<the_node_info, subtract_points, output_property<vector3, output_info>, 
         input_property<point3, input1_info>, input_property<point3, input2_info>> type;
 }
 
 namespace plane_creation
 {
-auto the_node_info = node_info(name_t("PlaneCreation"), 
-        description_t("Creates plane from given normal and point"), 
-        uuid(0xccc116ac, 0x3a0f4a83, 0x86eddda5, 0xc5f7a872), category);
+struct the_node_info { string name = "PlaneCreation"; 
+    string description = "Creates plane from given normal and point";
+    uuid id = uuid(0xccc116ac, 0x3a0f4a83, 0x86eddda5, 0xc5f7a872); string category = category_geom;};
 
-auto normal_info = property_info<vector3>(name_t("normal"), label_t("Normal"), 
-        description_t("Plane normal"));
-auto point_info = property_info<point3>(name_t("point"), label_t("Point"), 
-        description_t("Point that belongs to plane"));
+struct normal_info { string name = "normal"; string label = "Normal"; 
+    string description = "Plane normal"; vector3 default_value = vector3();};
+struct point_info { string name = "point"; string label = "Point"; 
+    string description = "Point that belongs to plane"; point3 default_value = point3();};
 
-auto output_info = property_info<plane>(name_t("plane"), label_t("Plane"), description_t("Plane"));
+struct output_info { string name = "plane"; string label = "Plane"; string description = "Plane"; 
+    plane default_value = plane();};
 
 struct create_plane { plane operator()(const vector3& Normal, const point3& Point) const 
     {return plane(Normal, Point);}};
     
-typedef function_node<the_node_info, create_plane, output_property<plane, output_info>, 
+typedef single<the_node_info, create_plane, output_property<plane, output_info>, 
         input_property<vector3, normal_info>, input_property<point3, point_info>> type;
 }
 
 namespace plane_line_intersection
 {
-auto the_node_info = node_info(name_t("PlaneLineIntersection"), 
-        description_t("Finds intersection of given plane and line"), 
-        uuid(0x6121a41d, 0x1dad4c1b, 0x8774e8d7, 0xe896f944), category);
+struct the_node_info { string name = "PlaneLineIntersection"; 
+    string description = "Finds intersection of given plane and line";
+    uuid id = uuid(0x6121a41d, 0x1dad4c1b, 0x8774e8d7, 0xe896f944); string category = category_geom;};
 
-auto plane_info = property_info<plane>(name_t("plane"), label_t("Plane"), description_t("Plane"));
-auto line_info = property_info<line3>(name_t("line"), label_t("Line"), description_t("Line"));
+struct plane_info { string name = "plane"; string label = "Plane"; 
+    string description = "Plane"; plane default_value = plane();};
+struct line_info { string name = "line"; string label = "Line"; 
+    string description = "Line"; line3 default_value = line3();};
 
-auto output_info = property_info<point3>(name_t("intersection_point"), label_t("Intersection Point"), 
-        description_t("Intersection Point"));
+struct output_info { string name = "intersection_point"; string label = "Intersection Point"; 
+    string description = "Intersection Point"; point3 default_value = point3();};
 
 struct get_intersection { 
     point3 operator()(const plane& Plane, const line3& Line) const
@@ -120,45 +130,45 @@ struct get_intersection {
     }
 };
 
-typedef function_node<the_node_info, get_intersection, output_property<point3, output_info>, 
+typedef single<the_node_info, get_intersection, output_property<point3, output_info>, 
         input_property<plane, plane_info>, input_property<line3, line_info>> type;
 }
 
 namespace point_to_vector
 {
-auto the_node_info = node_info(name_t("PointToVector"), 
-        description_t("Converts 3d point to 3d vector"), 
-        uuid(0x88791f3a, 0xaa1942b1, 0x939e541b, 0xf58dd0ba), category);
+struct the_node_info { string name = "PointToVector"; 
+    string description = "Converts 3d point to 3d vector";
+    uuid id = uuid(0x88791f3a, 0xaa1942b1, 0x939e541b, 0xf58dd0ba); string category = category_geom;};
 
-auto input_info = property_info<point3>(name_t("point"), label_t("Point"), 
-        description_t("Input Point"));
+struct input_info { string name = "point"; string label = "Point"; string description = "Input Point"; 
+    point3 default_value = point3();};
 
-auto output_info = property_info<vector3>(name_t("vector"), label_t("Vector"), 
-        description_t("Output Vector"));
+struct output_info { string name = "vector"; string label = "Vector"; string description = "Output Vector"; 
+    vector3 default_value = vector3();};
 
 struct point_to_vector { vector3 operator()(const point3& Point) const 
     {return vector3(Point[0], Point[1], Point[2]);}};
     
-typedef function_node<the_node_info, point_to_vector, output_property<vector3, output_info>, 
+typedef single<the_node_info, point_to_vector, output_property<vector3, output_info>, 
         input_property<point3, input_info>> type;
 }
 
 namespace vector_to_point
 {
-auto the_node_info = node_info(name_t("VectorToPoint"), 
-        description_t("Converts 3d vector to 3d point"), 
-        uuid(0x8a422a2a, 0x45a3430e, 0x80dda5ed, 0xde581fdf), category);
+struct the_node_info { string name = "VectorToPoint"; 
+    string description = "Converts 3d vector to 3d point";
+    uuid id = uuid(0x8a422a2a, 0x45a3430e, 0x80dda5ed, 0xde581fdf); string category = category_geom;};
 
-auto input_info = property_info<vector3>(name_t("vector"), label_t("Vector"), 
-        description_t("Input Vector"));
+struct input_info { string name = "vector"; string label = "Vector"; string description = "Input Vector"; 
+    vector3 default_value = vector3();};
 
-auto output_info = property_info<point3>(name_t("point"), label_t("Point"), 
-        description_t("Output Point"));
+struct output_info { string name = "point"; string label = "Point"; string description = "Output Point"; 
+    point3 default_value = point3();};
 
 struct vector_to_point { point3 operator()(const vector3& Vector) const 
     {return point3(Vector[0], Vector[1], Vector[2]);}};
     
-typedef function_node<the_node_info, vector_to_point, output_property<point3, output_info>, 
+typedef single<the_node_info, vector_to_point, output_property<point3, output_info>, 
         input_property<vector3, input_info>> type;
 }
 

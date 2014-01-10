@@ -1,3 +1,6 @@
+#ifndef K3DSDK_NODES_TYPEINFO_H
+#define K3DSDK_NODES_TYPEINFO_H
+
 // K-3D
 // Copyright (c) 1995-2009, Timothy M. Shead
 //
@@ -21,11 +24,32 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <modules/boolean/operations.h>
+#include <string>
 
-K3D_MODULE_START(Registry)
-    Registry.register_factory(module::boolean::conjunction::type::get_factory());
-    Registry.register_factory(module::boolean::disjunction::type::get_factory());
-    Registry.register_factory(module::boolean::negation::type::get_factory());
-K3D_MODULE_END
+#include <boost/concept_check.hpp>
+#include <boost/concept/usage.hpp>
 
+namespace k3d
+{
+namespace nodes
+{
+
+/// TypeInfo concept
+template<class X, typename V> struct TypeInfo: boost::DefaultConstructible<X>
+{
+    BOOST_CONCEPT_USAGE(TypeInfo)
+    {
+        same_type(v, x.default_value);
+    }
+    
+private:
+    X x;
+    V v;
+    template <typename T>
+    void same_type(T const&, T const&);
+};
+
+} // namespace nodes
+} // namespace k3d
+
+#endif // !K3DSDK_NODES_TYPEINFO_H

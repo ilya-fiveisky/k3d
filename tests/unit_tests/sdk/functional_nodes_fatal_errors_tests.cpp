@@ -21,9 +21,10 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/function_nodes.h>
+#include <k3dsdk/nodes/property.h>
 
 #include <exception>
+#include <string>
 #include <tuple>
 
 #include <boost/test/unit_test.hpp>
@@ -38,18 +39,17 @@
 #include <fixture.h>
 
 using namespace std;
-using namespace stdx;
 using namespace boost;
 using namespace sigc;
 using namespace k3d;
+using namespace k3d::nodes;
 using namespace k3d::tests;
-using namespace k3d::function_nodes;
 
-BOOST_AUTO_TEST_SUITE( function_nodes_suite )
+BOOST_AUTO_TEST_SUITE( functional_nodes_suite )
         
 BOOST_AUTO_TEST_SUITE( fatal_errors_suite )
 
-property_info<vector3> input1_info(name_t("a"), label_t("A"), description_t("A"));
+struct input1_info { string name = "a"; string label = "A"; string description = "A"; vector3 default_value = vector3();};
 
 typedef input_property<vector3, input1_info> prop_t;
 
@@ -74,4 +74,4 @@ BOOST_FIXTURE_TEST_CASE( construct_segfault_node, fixture )
 
 BOOST_AUTO_TEST_SUITE_END() // fatal_errors_suite
        
-BOOST_AUTO_TEST_SUITE_END() // function_nodes_suite
+BOOST_AUTO_TEST_SUITE_END() // functional_nodes_suite

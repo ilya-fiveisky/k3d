@@ -21,9 +21,10 @@
 	\author Ilya Fiveisky (ilya.five@gmail.com)
 */
 
-#include <k3dsdk/memorization_node.h>
+#include <k3dsdk/nodes/memorization.h>
 
 #include <exception>
+#include <string>
 
 #include <boost/test/unit_test.hpp>
 
@@ -32,7 +33,6 @@
 #include <k3dsdk/algebra.h>
 #include <k3dsdk/data.h>
 #include <k3dsdk/document.h>
-#include <k3dsdk/function_nodes.h>
 #include <k3dsdk/imatrix_sink.h>
 #include <k3dsdk/imatrix_source.h>
 #include <k3dsdk/interface_list.h>
@@ -44,25 +44,24 @@
 #include <k3dsdk/vector4.h>
 
 #include <fixture.h>
+#include <utils.h>
 
 using namespace std;
 using namespace stdx;
 using namespace boost;
 using namespace sigc;
 using namespace k3d;
+using namespace k3d::nodes;
 using namespace k3d::tests;
-using namespace k3d::function_nodes;
 
 BOOST_AUTO_TEST_SUITE( memorization_node_suite )
         
-category_t category("Category1");
+struct the_node_info { string name = "NodeInfo"; string description = "Node description";
+        uuid id = uuid(0x835bb1af, 0x95a04399, 0x856afa74, 0x92a2bda4); string category = "Category1";};
 
-auto the_node_info = node_info(name_t("NodeInfo"), description_t("Node description"), 
-        uuid(0x835bb1af, 0x95a04399, 0x856afa74, 0x92a2bda4), category);
+struct the_type_info { matrix4 default_value = identity3();};
 
-auto the_type_info = k3d::function_nodes::type_info<matrix4>(identity3());
-
-typedef memorization_node<the_node_info, matrix4, the_type_info, interface_list<imatrix_source,
+typedef memorization<the_node_info, matrix4, the_type_info, interface_list<imatrix_source,
         interface_list<imatrix_sink>>> memorization_node_t;
 
 BOOST_AUTO_TEST_SUITE( initialization_suite )
@@ -76,30 +75,6 @@ BOOST_AUTO_TEST_SUITE_END() // initialization_suite
 
 
 BOOST_AUTO_TEST_SUITE( properties_usage_suite )
-
-iproperty* get_property_by_name(node& Node, const string& Name)
-{
-    auto props = Node.properties();
-    
-    auto it = find_if(props.begin(), props.end(), 
-            [Name](iproperty* p){return Name == p->property_name();});
-    if(it == props.end())
-    {
-        throw invalid_argument( "There is no '" + Name + "' property!" );
-    }
-            
-    return *it;
-}
-
-iwritable_property* get_writable_property_by_name(node& Node, const string& Name)
-{
-    auto result = dynamic_cast<iwritable_property*>(get_property_by_name(Node, Name));
-    if(!result)
-    {
-        throw logic_error( "'" + Name + "' isn't iwritable_property!" );
-    }
-    return result;
-}
 
 BOOST_FIXTURE_TEST_CASE( check_output_value, fixture )
 {

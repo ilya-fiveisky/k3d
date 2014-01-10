@@ -28,11 +28,13 @@
             <word>imouse</word>
             <word>inode</word>
             <word>istate</word>
+            <word>iunknown</word>
             <word>iwritable</word>
             <word>ngui</word>
             <word>plugin</word>
             <word>plugins</word>
             <word>Shead</word>
+            <word>stdx</word>
             <word>tshead</word>
             <word>xy</word>
         </spellchecker-wordlist>
